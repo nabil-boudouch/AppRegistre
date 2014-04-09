@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>{% block title %} C.C.O {% endblock %}</title>  
+        <!-- Bootstrap core CSS -->
+
+{% block stylesheets %}
+        <style>
+                body {
+                    padding-top: 60px;
+                    padding-bottom: 40px;
+                }
+            </style>
+
+    {% stylesheets 
+
+        '@GestionPassBundle/Resources/public/css/bootstrap2.css' 
+        '@GestionPassBundle/Resources/public/css/bootstrap-responsive.css'
+        '@GestionPassBundle/Resources/public/css/sb-admin.css'
+        '@GestionPassBundle/Resources/public/css/self.css' 
+        '@GestionPassBundle/Resources/public/css/font-awesome.min.css' 
+
+filter ='yui_css,cssrewrite'  %}        
+            <link rel="stylesheet" href="{{asset_url}}" type="text/css" />    
+     {% endstylesheets %}
+            <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+            <style>
+                    #container{
+                        width: 1024px; 
+                        height: 400px; 
+                        margin: 0 auto; 
+                        background: url({{asset('bundles/gestionpass/images/ajax-loader.gif')}} ) no-repeat ;    
+                        background-position-x: 482px;
+                        background-position-y: 200px;
+                    }
+                    .dropdown-backdrop{
+    position: static;
+}
+                </style>
+                <link rel="stylesheet" type="text/css" href="{{ asset('bundles/gestionpass/css/chartStyle.css') }}"
+
+{% endblock %}
+
+                      <!-- JavaScript -->
+
+{% block javascripts %}            
+
+    {%  javascripts   
+         '@GestionPassBundle/Resources/public/js/jquery-1.10.2.js' 
+         '@GestionPassBundle/Resources/public/js/bootstrap.js'
+         '@GestionPassBundle/Resources/public/js/modernizr-2.6.2-respond-1.1.0.min.js'
+         '@GestionPassBundle/Resources/public/js/morris/chart-data-morris.js'
+         '@GestionPassBundle/Resources/public/js/tablesorter/jquery.tablesorter.js'
+         '@GestionPassBundle/Resources/public/js/tablesorter/tables.js'
+
+filter='yui_js' %}
+                <script  src="{{asset_url}}" type="text/javascript" ></script>                        
+{% endjavascripts %}
+{#                <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>#}
+                <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+                <script src="http://code.highcharts.com/highcharts.js"></script>
+                <script src="http://code.highcharts.com/modules/exporting.js"></script>
+{% endblock %}
+                    <!-- Page Specific Plugins -->
+                </head>
+                <body>
+                    <div id="wrapper">
+                        <!-- Sidebar -->
+                        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="index.html">C.C.O</a>
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                <ul class="nav navbar-nav side-nav">
+                                    <li class=""><a href="{{ path('gestion_pass_homepage') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
+                                    <li><a href="{{ path('anomalie') }}"><i class="fa fa-bar-chart-o"></i> Anomalie</a></li>
+                                    <li><a href="{{ path('fluidite') }}"><i class="fa fa-bar-chart-o"></i> Fluidité</a></li>
+                                    <li><a href="{{ path('facilitation') }}"><i class="fa fa-bar-chart-o"></i> Facilitation</a></li>
+                              
+                                          <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> CCTV <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Visualisation</a></li>
+                                            <li><a href="#">Exportation</a></li>
+                                            <li><a href="#">Evenements</a></li>
+                                        </ul>
+                                    </li>
+                                
+                                    
+                                    <li><a href="{{ path('afficher_chart_anomalie') }}"><i class="fa fa-bar-chart-o"></i> Chart</a></li>
+                              </ul>
+                                <ul class="nav navbar-nav navbar-right navbar-user">
+                                    <li class="dropdown messages-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">7</span> <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-header">7 New Messages</li>
+                                            <li class="message-preview">
+                                                <a href="#">
+                                                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                                                    <span class="name">John Smith:</span>
+                                                    <span class="message">Hey there, I wanted to ask you something...</span>
+                                                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li class="message-preview">
+                                                <a href="#">
+                                                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                                                    <span class="name">John Smith:</span>
+                                                    <span class="message">Hey there, I wanted to ask you something...</span>
+                                                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li class="message-preview">
+                                                <a href="#">
+                                                    <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                                                    <span class="name">John Smith:</span>
+                                                    <span class="message">Hey there, I wanted to ask you something...</span>
+                                                    <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">View Inbox <span class="badge">7</span></a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown alerts-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span class="badge">3</span> <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Default <span class="label label-default">Default</span></a></li>
+                                            <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
+                                            <li><a href="#">Success <span class="label label-success">Success</span></a></li>
+                                            <li><a href="#">Info <span class="label label-info">Info</span></a></li>
+                                            <li><a href="#">Warning <span class="label label-warning">Warning</span></a></li>
+                                            <li><a href="#">Danger <span class="label label-danger">Danger</span></a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">View All</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown user-dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                                            <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
+                                            <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#"><i class="fa fa-power-off"></i> <div id="Deconnexion" class="span3">
+{% block connecte %}
+{% endblock %}  
+                                                                </div></a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div><!-- /.navbar-collapse -->
+                                    </nav>
+
+                                    <div id="page-wrapper">
+
+{% block entete %}
+
+{% endblock %}
+
+{% block notification %}
+{% endblock %}
+
+
+          {% block chartGeneral %}
+                                            
+          {% endblock %}
+
+          {% block troisBlocChart %}
+{% endblock %}
+
+{% block formulaire %}
+{% endblock %}
+
+          {% block tables %}
+{% endblock %}
+
+ {% block body %}
+{% endblock %}
+                                        <!-- /.row -->
+
+                                    </div><!-- /#page-wrapper -->
+
+                                </div><!-- /#wrapper -->
+                            </body>
+                        </html>

@@ -1,0 +1,384 @@
+gestion_pass_homepage:
+    pattern:  /home
+    defaults: { _controller: GestionPassBundle:Default:index }
+
+anomalie_en_cours:
+    pattern:  /anomalieencours
+    defaults: { _controller: "GestionPassBundle:Default:toutesanomalies" }
+
+nbr_anomalie_en_cours:
+    pattern:  /anomalieencours
+    defaults: { _controller: "GestionPassBundle:Anomalie:toutesanomalies" }  
+
+tot_anomalie_en_cours:
+    pattern:  /totalano
+    defaults: { _controller: "GestionPassBundle:Default:nbrtotaleano" }  
+    requirements: { _method: post|get }
+tot_consigne:
+    pattern:  /totalconsigne
+    defaults: { _controller: "GestionPassBundle:Default:nbrtotaleconsigne" }  
+    requirements: { _method: post|get }    
+# Chart
+
+chart_anomalie:
+    pattern: /chartAno
+    defaults: { _controller: "GestionPassBundle:Anomalie:chartanomalie"}
+
+afficher_chart_anomalie:
+    pattern: /afficherchartAno
+    defaults: { _controller: "GestionPassBundle:Anomalie:afficherchart"}
+    
+chart_anomalie_pie:
+    pattern: /chartAnoPie
+    defaults: { _controller: "GestionPassBundle:Anomalie:chartanomaliepie"}
+
+afficher_chart_anomalie_pie:
+    pattern: /afficherchartAnoPie
+    defaults: { _controller: "GestionPassBundle:Anomalie:afficherchartpie"}
+chart_anomalie_heure:
+    pattern: /chartAnoHeure
+    defaults: { _controller: "GestionPassBundle:Anomalie:chartanomalieheure"}
+
+afficher_chart_anomalie_heure:
+    pattern: /afficherchartAnoHeure
+    defaults: { _controller: "GestionPassBundle:Anomalie:afficherchartheure"}
+
+chart_anomalie_informatique:
+    pattern: /ChartAnoInformatique
+    defaults: { _controller: "GestionPassBundle:Anomalie:chartanoinfo"}
+    
+afficher_chart_anomalie_informatique:
+    pattern: /AfficherChartAnoInformatique
+    defaults: { _controller: "GestionPassBundle:Anomalie:afficherchartinfo"}
+
+chart_anomalie_electronique:
+    pattern: /chartAnoElectro
+    defaults: { _controller: "GestionPassBundle:Anomalie:chartanoelectro"}    
+
+afficher_chart_anomalie_electronique:
+    pattern: /AfficherChartAnoElectronique
+    defaults: { _controller: "GestionPassBundle:Anomalie:afficherchartelectro"}
+
+chart_anomalie_electrique:
+    pattern: /chartAnoElec
+    defaults: { _controller: "GestionPassBundle:Anomalie:chartanoelec"}
+afficher_chart_anomalie_electrique:
+    pattern: /AfficherChartAnoElectrique
+    defaults: { _controller: "GestionPassBundle:Anomalie:afficherchartelec"}
+
+#Anomalie
+
+anomalie:
+    pattern:  /anomalie
+    defaults: { _controller: "GestionPassBundle:Anomalie:index" }
+
+anomalie_show:
+    pattern:  /anomalie/{id}/show
+    defaults: { _controller: "GestionPassBundle:Anomalie:show" }
+
+#-----------
+anomalie_en_cours:
+    pattern:  /anomalieencours
+    defaults: { _controller: "GestionPassBundle:Default:toutesanomalies" }
+
+anomalie_new:
+    pattern:  /anomalie/new
+    defaults: { _controller: "GestionPassBundle:Anomalie:new" }
+
+anomalie_create:
+    pattern:  /anomalie/create
+    defaults: { _controller: "GestionPassBundle:Anomalie:create" }
+    requirements: { _method: post }
+
+anomalie_edit:
+    pattern:  /anomalie/{id}/edit
+    defaults: { _controller: "GestionPassBundle:Anomalie:edit" }
+
+anomalie_update:
+    pattern:  /anomalie/{id}/update
+    defaults: { _controller: "GestionPassBundle:Anomalie:update" }
+    requirements: { _method: post|put }
+
+anomalie_delete:
+    pattern:  /anomalie/{id}/delete
+    defaults: { _controller: "GestionPassBundle:Anomalie:delete" }
+    requirements: { _method: post|delete }
+
+anomalie_regler:
+    pattern:  /anomalie/{id}/Regler
+    defaults: { _controller: "GestionPassBundle:Anomalie:regler" }
+
+nbr_anomalie_en_cours:
+    pattern:  /anomalieencours
+    defaults: { _controller: "GestionPassBundle:Anomalie:nbrano" }  
+
+#Facilitation
+  
+facilitation:
+    pattern:  /facilitation
+    defaults: { _controller: "GestionPassBundle:Facilitation:index" }
+
+facilitation_show:
+    pattern:  /facilitation/{id}/show
+    defaults: { _controller: "GestionPassBundle:Facilitation:show" }
+
+facilitation_new:
+    pattern:  /facilitation/new
+    defaults: { _controller: "GestionPassBundle:Facilitation:new" }
+
+facilitation_create:
+    pattern:  /facilitation/create
+    defaults: { _controller: "GestionPassBundle:Facilitation:create" }
+    requirements: { _method: post }
+
+facilitation_edit:
+    pattern:  /facilitation/{id}/edit
+    defaults: { _controller: "GestionPassBundle:Facilitation:edit" }
+
+facilitation_update:
+    pattern:  /facilitation/{id}/update
+    defaults: { _controller: "GestionPassBundle:Facilitation:update" }
+    requirements: { _method: post|put }
+
+facilitation_delete:
+    pattern:  /facilitation/{id}/delete
+    defaults: { _controller: "GestionPassBundle:Facilitation:delete" }
+    requirements: { _method: post|delete }
+
+facilitation_regler:
+    pattern:  /facilitation/{id}/regler
+    defaults: { _controller: "GestionPassBundle:Facilitation:regler" }
+
+#fluidite
+
+fluidite:
+    pattern:  /fluidite/
+    defaults: { _controller: "GestionPassBundle:Fluidite:index" }
+
+fluidite_show:
+    pattern:  /fluidite/{id}/show
+    defaults: { _controller: "GestionPassBundle:Fluidite:show" }
+
+fluidite_new:
+    pattern:  /fluidite/new
+    defaults: { _controller: "GestionPassBundle:Fluidite:new" }
+
+fluidite_create:
+    pattern:  /fluidite/create
+    defaults: { _controller: "GestionPassBundle:Fluidite:create" }
+    requirements: { _method: post }
+
+fluidite_edit:
+    pattern:  /fluidite/{id}/edit
+    defaults: { _controller: "GestionPassBundle:Fluidite:edit" }
+
+fluidite_update:
+    pattern:  /fluidite/{id}/update
+    defaults: { _controller: "GestionPassBundle:Fluidite:update" }
+    requirements: { _method: post|put }
+
+fluidite_delete:
+    pattern:  /fluidite/{id}/delete
+    defaults: { _controller: "GestionPassBundle:Fluidite:delete" }
+    requirements: { _method: post|delete }
+fluidite_regler:
+    pattern:  /fluidite/{id}/regler
+    defaults: { _controller: "GestionPassBundle:Fluidite:regler" }
+
+
+#emplacement
+
+emplacement:
+    pattern:  /emplacement
+    defaults: { _controller: "GestionPassBundle:Emplacement:index" }
+
+emplacement_show:
+    pattern:  /emplacement/{id}/show
+    defaults: { _controller: "GestionPassBundle:Emplacement:show" }
+
+emplacement_new:
+    pattern:  /emplacement/new
+    defaults: { _controller: "GestionPassBundle:Emplacement:new" }
+
+emplacement_create:
+    pattern:  /emplacement/create
+    defaults: { _controller: "GestionPassBundle:Emplacement:create" }
+    requirements: { _method: post }
+
+emplacement_edit:
+    pattern:  /emplacement/{id}/edit
+    defaults: { _controller: "GestionPassBundle:Emplacement:edit" }
+
+emplacement_update:
+    pattern:  /emplacement/{id}/update
+    defaults: { _controller: "GestionPassBundle:Emplacement:update" }
+    requirements: { _method: post|put }
+
+emplacement_delete:
+    pattern:  /emplacement/{id}/delete
+    defaults: { _controller: "GestionPassBundle:Emplacement:delete" }
+    requirements: { _method: post|delete }
+
+#zone
+
+zone:
+    pattern:  /zone
+    defaults: { _controller: "GestionPassBundle:Zone:index" }
+
+zone_show:
+    pattern:  /zone/{id}/show
+    defaults: { _controller: "GestionPassBundle:Zone:show" }
+
+zone_new:
+    pattern:  /zone/new
+    defaults: { _controller: "GestionPassBundle:Zone:new" }
+
+zone_create:
+    pattern:  /zone/create
+    defaults: { _controller: "GestionPassBundle:Zone:create" }
+    requirements: { _method: post }
+
+zone_edit:
+    pattern:  /zone/{id}/edit
+    defaults: { _controller: "GestionPassBundle:Zone:edit" }
+
+zone_update:
+    pattern:  /zone/{id}/update
+    defaults: { _controller: "GestionPassBundle:Zone:update" }
+    requirements: { _method: post|put }
+
+zone_delete:
+    pattern:  /zone/{id}/delete
+    defaults: { _controller: "GestionPassBundle:Zone:delete" }
+    requirements: { _method: post|delete }
+
+#equipement 
+equipement:
+    pattern:  /equipement
+    defaults: { _controller: "GestionPassBundle:Equipement:index" }
+
+equipement_show:
+    pattern:  /equipement/{id}/show
+    defaults: { _controller: "GestionPassBundle:Equipement:show" }
+
+equipement_new:
+    pattern:  /equipement/new
+    defaults: { _controller: "GestionPassBundle:Equipement:new" }
+
+equipement_create:
+    pattern:  /equipement/create
+    defaults: { _controller: "GestionPassBundle:Equipement:create" }
+    requirements: { _method: post }
+
+equipement_edit:
+    pattern:  /equipement/{id}/edit
+    defaults: { _controller: "GestionPassBundle:Equipement:edit" }
+
+equipement_update:
+    pattern:  /equipement/{id}/update
+    defaults: { _controller: "GestionPassBundle:Equipement:update" }
+    requirements: { _method: post|put }
+
+equipement_delete:
+    pattern:  /equipement/{id}/delete
+    defaults: { _controller: "GestionPassBundle:Equipement:delete" }
+    requirements: { _method: post|delete }
+
+#typeFacilitation
+
+typefacilitation:
+    pattern:  /typefacilitation
+    defaults: { _controller: "GestionPassBundle:typeFacilitation:index" }
+
+typefacilitation_show:
+    pattern:  /typefacilitation/{id}/show
+    defaults: { _controller: "GestionPassBundle:typeFacilitation:show" }
+
+typefacilitation_new:
+    pattern:  /typefacilitation/new
+    defaults: { _controller: "GestionPassBundle:typeFacilitation:new" }
+
+typefacilitation_create:
+    pattern:  /typefacilitation/create
+    defaults: { _controller: "GestionPassBundle:typeFacilitation:create" }
+    requirements: { _method: post }
+
+typefacilitation_edit:
+    pattern:  /typefacilitation/{id}/edit
+    defaults: { _controller: "GestionPassBundle:typeFacilitation:edit" }
+
+typefacilitation_update:
+    pattern:  /typefacilitation/{id}/update
+    defaults: { _controller: "GestionPassBundle:typeFacilitation:update" }
+    requirements: { _method: post|put }
+
+typefacilitation_delete:
+    pattern:  /typefacilitation/{id}/delete
+    defaults: { _controller: "GestionPassBundle:typeFacilitation:delete" }
+    requirements: { _method: post|delete }
+
+#typeFluidite
+
+typefluidite:
+    pattern:  /typeFluidite
+    defaults: { _controller: "GestionPassBundle:typeFluidite:index" }
+
+typefluidite_show:
+    pattern:  /typeFluidite/{id}/show
+    defaults: { _controller: "GestionPassBundle:typeFluidite:show" }
+
+typefluidite_new:
+    pattern:  /typeFluidite/new
+    defaults: { _controller: "GestionPassBundle:typeFluidite:new" }
+
+typefluidite_create:
+    pattern:  /typeFluidite/create
+    defaults: { _controller: "GestionPassBundle:typeFluidite:create" }
+    requirements: { _method: post }
+
+typefluidite_edit:
+    pattern:  /typeFluidite/{id}/edit
+    defaults: { _controller: "GestionPassBundle:typeFluidite:edit" }
+
+typefluidite_update:
+    pattern:  /typeFluidite/{id}/update
+    defaults: { _controller: "GestionPassBundle:typeFluidite:update" }
+    requirements: { _method: post|put }
+
+typefluidite_delete:
+    pattern:  /typeFluidite/{id}/delete
+    defaults: { _controller: "GestionPassBundle:typeFluidite:delete" }
+    requirements: { _method: post|delete }
+
+#Consigne
+
+consigne:
+    pattern:  /consigne
+    defaults: { _controller: "GestionPassBundle:Consigne:index" }
+
+consigne_show:
+    pattern:  /consigne/{id}/show
+    defaults: { _controller: "GestionPassBundle:Consigne:show" }
+
+consigne_new:
+    pattern:  /consigne/new
+    defaults: { _controller: "GestionPassBundle:Consigne:new" }
+
+consigne_create:
+    pattern:  /consigne/create
+    defaults: { _controller: "GestionPassBundle:Consigne:create" }
+    requirements: { _method: post }
+
+consigne_edit:
+    pattern:  /consigne/{id}/edit
+    defaults: { _controller: "GestionPassBundle:Consigne:edit" }
+
+consigne_update:
+    pattern:  /consigne/{id}/update
+    defaults: { _controller: "GestionPassBundle:Consigne:update" }
+    requirements: { _method: post|put }
+
+consigne_delete:
+    pattern:  /consigne/{id}/delete
+    defaults: { _controller: "GestionPassBundle:Consigne:delete" }
+    requirements: { _method: post|delete }

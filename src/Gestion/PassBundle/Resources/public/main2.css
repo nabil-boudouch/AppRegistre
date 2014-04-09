@@ -1,0 +1,57 @@
+body {
+    background: #cecece;
+}
+
+#menu {
+    margin-top: 20px !important;
+    border-bottom: 0 !important;
+    width: 60% !important;
+}
+#menu a {
+background: #000;
+color: #FFF;
+font-variant: small-caps;
+text-decoration: none;
+padding: 20px;
+font-size: 15px !important;
+}
+#page {
+    width: 960px;
+    margin:auto;
+}
+#gestion_passbundle_anomalietype {
+width: 75%;
+}
+
+#gestion_passbundle_anomalietype div {
+float: left;
+width: 100%;
+}
+#gestion_passbundle_anomalietype label {
+display: inline-block;
+}
+
+#gestion_passbundle_fluiditetype {
+width: 75%;
+}
+
+#gestion_passbundle_fluiditetype div {
+float: left;
+width: 100%;
+}
+#gestion_passbundle_fluiditetype label {
+display: inline-block;
+}
+
+#gestion_passbundle_facilitationtype {
+width: 75%;
+}
+
+#gestion_passbundle_facilitationtype div {
+float: left;
+width: 100%;
+}
+#gestion_passbundle_facilitationtype label {
+display: inline-block;
+}
+

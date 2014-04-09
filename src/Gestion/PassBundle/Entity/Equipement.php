@@ -1,0 +1,154 @@
+<?php
+
+namespace Gestion\PassBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+/**
+ * Equipement
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Gestion\PassBundle\Entity\EquipementRepository")
+ */
+class Equipement
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nomEquipement", type="string", length=255)
+     */
+    private $nomEquipement;
+
+    /**
+     * @var string
+     * @ORM\Column(name="Service", type="string", length=255)
+     */
+    private $service;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Gestion\PassBundle\Entity\Emplacement")
+     */
+    private $emplacement;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Gestion\PassBundle\Entity\Zone")
+     */
+    private $zone;
+        
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nomEquipement
+     *
+     * @param string $nomEquipement
+     * @return Equipement
+     */
+    public function setNomEquipement($nomEquipement)
+    {
+        $this->nomEquipement = $nomEquipement;
+    
+        return $this;
+    }
+
+    /**
+     * Get nomEquipement
+     *
+     * @return string 
+     */
+    public function getNomEquipement()
+    {
+        return $this->nomEquipement;
+    }
+
+    /**
+     * Set service
+     *
+     * @param string $service
+     * @return Equipement
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+    
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return string 
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * Set emplacement
+     *
+     * @param \Gestion\PassBundle\Entity\Emplacement $emplacement
+     * @return Equipement
+     */
+    public function setEmplacement(\Gestion\PassBundle\Entity\Emplacement $emplacement = null)
+    {
+        $this->emplacement = $emplacement;
+    
+        return $this;
+    }
+
+    /**
+     * Get emplacement
+     *
+     * @return \Gestion\PassBundle\Entity\Emplacement 
+     */
+    public function getEmplacement()
+    {
+        return $this->emplacement;
+    }
+
+    /**
+     * Set zone
+     *
+     * @param string $zone
+     * @return Equipement
+     */
+    public function setZone($zone)
+    {
+        $this->zone = $zone;
+    
+        return $this;
+    }
+
+    /**
+     * Get zone
+     *
+     * @return string 
+     */
+    public function getZone()
+    {
+        return $this->zone;
+    }
+
+    public function __toString() {
+        return strval($this->getNomEquipement())
+        ;
+    }
+    
+    }

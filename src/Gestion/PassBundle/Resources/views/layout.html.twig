@@ -1,0 +1,14 @@
+
+{% extends "::base.html.twig" %}
+
+{% block connecte %}
+
+{# app/Resources/views/layout.html.twig #}
+
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+  <a href="{{ path('fos_user_security_logout') }}"  > Log Out</a>
+{% else %}
+    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+{% endif %}
+    
+{% endblock %}

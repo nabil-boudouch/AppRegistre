@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %} C.C.O {% endblock %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       {% block stylesheet %}  
+        
+        <link rel="stylesheet" href="{{ asset('bundles/gestionpass/css/bootstrap.css') }}" type="text/css" media="all" /> 
+        <link rel="stylesheet" href="{{ asset('bundles/gestionpass/css/bootstrap-responsive.css') }}" type="text/css" media="all" /> 
+        <link rel="stylesheet" href="{{ asset('bundles/gestionpass/css/navbar-fixed-top.css') }}" type="text/css" media="all" /> 
+        <link rel="stylesheet" href="{{ asset('bundles/gestionpass/css/justified-nav.css') }}" type="text/css" media="all" /> 
+
+
+        <link rel="stylesheet" href="{{  asset('bundles/gestionpass/css/jquery-ui.css')}}"type="text/css" media="all" /> 
+
+        <link rel="stylesheet" href="{{ asset('bundles/gestionpass/css/main.css') }}" type="text/css" media="all" /> 
+
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+               {% endblock %}
+{% block javascripts %}
+{#            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" type="text/javascript"></script> #}
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>     	
+        <script type="text/javascript" src="{{ asset('bundles/gestionpass/js/ajax_etat_switch.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/gestionpass/js/bootstrap.js') }}"></script>
+
+{% endblock %}
+
+    </head>
+    <body>
+        <div class="container">
+
+
+        <div id="header">
+{% block connecte %}
+{% endblock %}
+                   {# <div id="home">
+                        <li> <a href="{{ path('gestion_pass_homepage') }}"  class="btn btn-large ">
+                             <i class="icon-home "> </i> 
+                             Accueil
+                        </a> 
+                    </li>
+                    </div>#}
+
+                <div id="div_menu" class="masthead">
+                    <ul id="menu" class="nav nav-justified">
+
+                                           
+                        <li> <a href="{{ path('gestion_pass_homepage') }}"  class="active">
+                                <i class="icon-home "> </i> 
+                                Accueil
+                            </a> 
+                        </li>
+
+                        <li> <a href="{{ path('anomalie') }}"  >
+                                <i class="icon-warning-sign "> </i> 
+                                Anomalie
+                            </a>
+                        </li>
+                        <li><a href="{{ path('fluidite') }}" >
+                                <i class="icon-retweet "> </i> 
+                                Fluidité
+                            </a>
+                        </li>
+                        <li><a href="{{ path('facilitation') }}"  >
+                                <i class="icon-shopping-cart "> </i>  
+                                Facilitation
+                            </a>
+                        </li>
+                        <li><a href="{{ path('facilitation') }}"  >
+                                <i class="icon-camera "> </i>  
+
+                                Visualisations
+                            </a>
+                        </li>
+                        <li><a href="{{ path('afficher_chart_anomalie') }}"  >
+                                <i class="icon-indent-left "> </i>  
+                                Reporting
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                        </div>
+        
+            <div id="container">
+                <div id="sub_header">
+        {% block formulaire_new %}
+        {% endblock %}
+                </div>
+                </div>
+
+                <div id="page">
+
+                    <div id="content">
+
+                {% block body %}
+
+                {% endblock %}
+                    </div>
+
+                    <div id="footer">
+                        <p>Tous droits réservés © C.C.O 2013</p>
+                    </div>
+                </div>
+            </div>
+            </body>
+        </html>

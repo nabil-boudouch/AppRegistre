@@ -1,0 +1,71 @@
+{% extends 'GestionPassBundle::layout.html.twig' %}
+
+{% block body -%}
+<h1>Anomalie</h1>
+
+<table class="record_properties">
+    <tbody>
+
+        <tr>
+            <th>Equipement</th>
+            <td>{{ entity.equipement }}</td>
+        </tr>
+        <tr>
+            <th>Service concerné</th>
+            <td>{{ entity.service }}</td>
+        </tr>
+        <tr>
+            <th>Zone</th>
+            <td>{{ entity.zone }}</td>
+        </tr>
+        <tr>
+            <th>Emplacement</th>
+            <td>{{ entity.emplacement }}</td>
+        </tr>
+
+        <tr>
+            <th>Date de detection</th>
+            <td> <strong>Le</strong> {{ entity.dateDetection|date('Y-m-d') }} <strong>à</strong>: {{ entity.dateDetection|date('H:i:s' ) }}</td>
+        </tr>
+
+            {%if entity.dateReglement != null %}
+        <tr>
+            <th>Datereglement</th>
+            <td>
+{{ entity.dateReglement|date('Y-m-d H:i:s') }}</td> 
+
+    {% endif %}
+
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('anomalie') }}" class="btn" >
+                            <i class="icon-chevron-left icon-white"> </i>
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('anomalie_edit', { 'id': entity.id }) }}" class="btn btn-success">
+                Edit
+            </a>
+        </li>
+        <li>
+            {{ form(delete_form) }}
+            {#
+            <form method="post" action=" {{path('anomalie_delete', { 'id': entity.id }) }}">
+                {{form_widget(delete_form._token)}}
+                        <div id="deleteform">
+                            <div>
+                                <button type="submit" id="form_submit" class="btn btn-primary">Delete</button>
+                            </div>
+                        </div>
+            
+            </form> 
+            #}
+            </li>
+    </ul>
+
+{% endblock %}

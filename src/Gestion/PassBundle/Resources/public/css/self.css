@@ -1,0 +1,83 @@
+body{
+ /*background-color: #828f9 !important;*/
+}
+
+#Deconnexion{
+/*        float: right;
+        margin-top: -50px;*/
+float: right;
+}
+#top-menu{
+float: left;
+margin-top: -53px;
+width: 100%;
+margin-left: 0px;
+margin-right: -39px;
+}
+#container_main{    
+    width:100%;
+}
+
+/*#header{
+    height: 110px;;
+}*/
+#form_container{
+
+}
+#footer {
+border-top: 1px solid #CCC;
+text-align: center;
+font-size: 85%;
+float: left;
+width: 100%;
+}
+/*#anomalie_form_new{
+    display: inline-flex;
+}*/
+#gestion_passbundle_anomalie_submit{
+margin-top: auto;    
+    margin-right: 40px;
+}
+
+#sub_header{
+background: url(../images/bg-subheader.png) bottom;
+margin-top: 39px;
+margin-left: 0px;
+width: 100%;
+border-bottom-left-radius: 23px;
+border-bottom-right-radius: 23px;
+/*margin-left: -30px;*/
+}
+
+#header{
+    background: url(../images/bg-header.jpg) repeat-x top;
+    background-color: gainsboro;
+height: 132px;
+}
+
+
+#anomalie_form_new, #fluidite_form_new, #facilitation_form_new{
+ max-width:300px;
+padding:19px 29px 29px;
+/*margin: 0 auto 20px;*/
+background-color: #fff;
+border: 1px solid #e5e5e5;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+-moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+box-shadow: 0 1px 2px rgba(0,0,0,.05);   
+    
+}
+/*formulaire de creation d'anomalie'*/
+#anomalie_new, #fluidite_new, #facilitation_new{
+    padding-top: 10px;
+    padding-left: 35px;
+    
+}
+#consigneContenu , #consigneContenuEdit{
+    resize: none;
+    height: 270px !IMPORTANT;
+    
+}

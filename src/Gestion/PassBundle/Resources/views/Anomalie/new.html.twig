@@ -1,0 +1,73 @@
+{% block formulaire%}
+
+<div class="row">
+<div class="col-lg-6">
+<div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"> <i class="fa fa-edit"></i> Signaler anomalie </h3>
+            </div>
+              <div class="panel-body">
+    <form  role="form" action= "{{ path('anomalie_create') }} " method="post"  {{ form_enctype(form) }} >
+        <div class="error form-group">{{ form_errors(form) }}
+        </div>
+        <div class="form-group">
+
+            <label>  {{ form_label(form.equipement) }}</label>
+                        {{ form_errors(form.equipement) }}
+                        {{ form_widget(form.equipement,{
+                        'id' :'equipement', 
+'attr': {
+                         'class' : 'form-control',
+                },
+                }) }}
+
+        </div>
+        
+ <div class="form-group">
+
+            <label>  {{ form_label(form.service) }}</label>
+                        {{ form_errors(form.service) }}
+                        {{ form_widget(form.service,{
+                        'id' :'service', 
+'attr': {
+                         'class' : 'form-control',
+                },
+                }) }}
+
+        </div>        
+        <div class="form-group">
+
+            <label>  {{ form_label(form.emplacement) }}</label>
+                        {{ form_errors(form.emplacement) }}
+                        {{ form_widget(form.emplacement,{
+                        'id' :'emplacement', 
+'attr': {
+                         'class' : 'form-control',
+                },
+                }) }}
+
+        </div>
+                <div class="form-group">
+
+            <label>  {{ form_label(form.zone) }}</label>
+                        {{ form_errors(form.zone) }}
+                        {{ form_widget(form.zone,{
+                        'id' :'zone', 
+'attr': {
+                         'class' : 'form-control',
+                },
+                }) }}
+
+        </div>
+                    <div class="form-group">
+                       {{form_widget(form._token)}}
+                        </div>
+
+                        <input type="submit" id="gestion_passbundle_anomalie_submit" class="newEntry btn btn-primary row-fluid" >
+
+                    </form>
+                  </div>
+</div>
+                </div>
+
+{% endblock %}

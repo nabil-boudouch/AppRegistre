@@ -1,0 +1,51 @@
+{% extends 'GestionPassBundle::layout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+{% block notification %}
+   {{ parent() }}
+{% endblock %}
+{% block formulaire %}
+        {{ render(controller('GestionPassBundle:Facilitation:new')) }}
+
+{% endblock %}
+
+{% block tables%}
+
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter">
+    <thead>
+        <tr>
+            <th class="header">Facilitation <i class="fa fa-unsorted"></i></th>
+            <th class="header">Service <i class="fa fa-unsorted"></i></th>
+            <th class="header">Zone <i class="fa fa-unsorted"></i></th>
+            <th class="header">Signalé à: <i class="fa fa-unsorted"></i></th>
+            <th class="header">Signalé par: <i class="fa fa-unsorted"></i></th>
+            <th  class="header">Suivi <i class="fa fa-unsorted"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('facilitation_show', { 'id': entity.id }) }}">{{ entity.typeFacilitation }}</a></td>
+                <td>{{ entity.service }}</td>
+                <td>{{ entity.zone}} <br>{{ entity.emplacement}} </td> 
+                
+                <td>{% if entity.dateDetection %}{{ entity.dateDetection|date('Y-m-d H:i:s') }}{% endif %}</td>
+                               <td>{{ entity.user}}</td> 
+
+                <td>{% if entity.dateReglement %}
+                <img src="{{ asset('bundles/gestionpass/images/icone_ok.png') }}" alt="suivi_ok" width="50" height="50" /></br>
+                    <strong>Le</strong> {{ entity.dateReglement|date('Y-m-d') }}<br>
+                    <strong>à</strong> : {{ entity.dateReglement|date('H:i:s') }} 
+                                {% else %}
+ <a href="{{ path('facilitation_regler', { 'id': entity.id }) }}">
+ <img src="{{ asset('bundles/gestionpass/images/icone_ko.png') }}" alt="suivi_ok" width="50" height="50" /></a></br>
+                            {% endif %} 
+                    </td>
+                            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    {% endblock %}

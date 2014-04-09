@@ -1,0 +1,50 @@
+{% extends 'GestionPassBundle::layout.html.twig' %}
+
+{% block javascripts %}
+{{ parent() }}
+
+{% endblock %}
+{% block breadcrumb %} {{ parent()}} | Consigne
+{% endblock %}
+
+{% block notification %}
+   {{ parent() }}
+{% endblock %}
+{% block formulaire %}
+        {{ render(controller('GestionPassBundle:Consigne:new')) }}
+
+{% endblock %}
+
+{% block tables -%}
+   
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-striped tablesorter">
+            <thead>
+                <tr>
+                    <th class="header">Objet: <i class="fa fa-unsorted"></i></th>
+                    <th class="header">Contenu: <i class="fa fa-unsorted"></i></th>
+                    <th class="header">Rédigé par: <i class="fa fa-unsorted"></i></th>
+                    <th class="header">Date: <i class="fa fa-unsorted"></i></th>
+                    <th class="header">Action:  <i class="fa fa-unsorted"></i></th>                   
+                </tr>
+            </thead>
+            <tbody>
+        {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.objet}}</td>
+                        <td>{{ entity.contenu }}</td>
+                        <td>{{ entity.user}} </td>     
+         <td> {% if entity.dateConsigne %} Le: {{ entity.dateConsigne|date('Y-m-d ') }}
+                                    {% endif %}</td>                        
+              <td>
+        <a href="{{ path('consigne_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+              </td>          
+          </tr>
+        {% endfor %}
+             </tbody>
+</table>
+</div>
+    
+    {% endblock %}

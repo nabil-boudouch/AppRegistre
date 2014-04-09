@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="">
+
+        <title>{% block title %} C.C.O {% endblock %}</title>  
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+{% block stylesheets %}
+    {% stylesheets 
+        '@GestionPassBundle/Resources/public/css/bootstrap.css' 
+        '@GestionPassBundle/Resources/public/css/bootstrap-responsive.css'
+        '@GestionPassBundle/Resources/public/css/self.css' 
+filter ='yui_css,cssrewrite' output='css/compiled/main.css' debug=false %}        
+            <link rel="stylesheet" href="{{asset_url}}" type="text/css" />    
+     {% endstylesheets %}
+{% endblock %}
+
+       {# <link rel="stylesheet" href="{{ asset('bundles/gestionpass/css/self.css') }}" type="text/css" media="all" /> 
+        <link rel="stylesheet" href="{{ asset('bundles/gestionpass/css/bootstrap.css') }}" type="text/css" media="all" /> 
+        <link rel="stylesheet" href="{{ asset('bundles/gestionpass/css/bootstrap-responsive.css') }}" type="text/css" media="all" /> 
+        <link rel="stylesheet" href="{{  asset('bundles/gestionpass/css/jquery-ui.css')}}"type="text/css" media="all" /> 
+        <link rel="stylesheet" href="{{  asset('bundles/gestionpass/css/jquery-ui.css')}}"type="text/css" media="all" /> 
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+               {% endblock %}#}
+
+{% block javascripts %}            
+    {%  javascripts   
+        '@GestionPassBundle/Resources/public/js/jquery.js' 
+        '@GestionPassBundle/Resources/public/js/bootstrap.js'
+        '@GestionPassBundle/Resources/public/js/bootstrap.min.js'
+        '@GestionPassBundle/Resources/public/js/modernizr-2.6.2-respond-1.1.0.min.js'
+
+filter='yui_js' output='js/compiled/main.js'%}
+                        <script  src="{{asset_url}}" type="text/javascript" ></script>                        
+
+{% endjavascripts %}
+{% endblock %}
+        <style>
+                body {
+                    padding-top: 60px;
+                    padding-bottom: 40px;
+                }
+            </style>
+        </head>
+        <body>
+            <!--[if lt IE 7]>
+                <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
+
+            <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="{{ path('gestion_pass_homepage') }}">C.C.O Report</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li class="active"><a href="{{ path('gestion_pass_homepage') }}">Accueil</a></li>
+                                <li><a href="{{ path('anomalie') }}">Anomalie</a></li>
+                                <li><a href="{{ path('fluidite') }}">Fluidité</a></li>
+                                <li><a href="{{ path('facilitation') }}">Facilitation</a></li>
+                                <li><a href="{{ path('facilitation') }}">Visualisation</a></li>
+                                <li><a href="{{ path('afficher_chart_anomalie') }}">Reporting</a></li>
+
+                            </ul>
+                            <div id="Deconnexion" class="span3">
+{% block connecte %}
+{% endblock %}  
+                                </div>
+
+                            </div><!--/.nav-collapse -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+
+                    <!-- Main hero unit for a primary marketing message or call to action -->
+                    <div id="formulaire">  
+                                {% block formulaire_new %}
+                               {% endblock %}
+                        </div>
+
+                        <!-- Example row of columns -->
+                        <div class="row">
+                        {% block body %}
+                        {% endblock %}
+                            </div>
+                            <hr>
+                            <footer>
+                                <p> Tous droits réservés © C.C.O 2014</p>
+                            </footer>
+
+                        </div> <!-- /container -->
+
+
+                    </body>
+                </html>

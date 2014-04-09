@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>{% block title %} C.C.O {% endblock %}</title>  
+        <!-- Bootstrap core CSS -->
+
+{% block stylesheets %}
+
+    {% stylesheets 
+        '@GestionPassBundle/Resources/public/css/bootstrap-sb.css' 
+        '@GestionPassBundle/Resources/public/css/sb-admin.css'
+        '@GestionPassBundle/Resources/public/css/self.css' 
+        '@GestionPassBundle/Resources/public/css/font-awesome.min.css' 
+
+filter ='yui_css,cssrewrite'  %}        
+        <link rel="stylesheet" href="{{asset_url}}" type="text/css" />    
+     {% endstylesheets %}
+        <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+        <style>
+                #container{
+                    width: 1024px; 
+                    height: 400px; 
+                    margin: 0 auto; 
+                    background: url({{asset('bundles/gestionpass/images/ajax-loader.gif')}} ) no-repeat ;    
+                    background-position-x: 482px;
+                    background-position-y: 200px;
+                }
+            </style>
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/gestionpass/css/chartStyle.css') }}"
+{% endblock %}
+
+                  <!-- JavaScript -->
+
+{% block javascripts %}            
+
+    {%  javascripts   
+         '@GestionPassBundle/Resources/public/js/jquery-1.10.2.js' 
+         '@GestionPassBundle/Resources/public/js/bootstrap-sb.js'
+         '@GestionPassBundle/Resources/public/js/tablesorter/jquery.tablesorter.js'
+         '@GestionPassBundle/Resources/public/js/tablesorter/tables.js'
+filter='yui_js' %}
+                  <script  src="{{asset_url}}" type="text/javascript" ></script>                        
+{% endjavascripts %}
+                  <script>
+                      varConf = "{{path('chart_anomalie')}}";
+
+                      //$(function() {
+                      var chart;
+                      $(document).ready(function() {
+                          //$('#search_keywords').keyup(function(key)
+                          //    {l
+                          $.getJSON(varConf, function(json) {
+                              chart = new Highcharts.Chart({
+                                  chart: {
+                                      renderTo: 'container',
+                                      type: 'line',
+                                      marginRight: 130,
+                                      marginBottom: 40,
+                                      load: function() {
+                                          document.getElementById('container').style.background = 'none';
+                                      }
+                                  },
+                                  credits: {
+                                      enabled: false
+                                  },
+                                  title: {
+                                      text: 'Anomalies par Services',
+                                      x: -20 //center
+                                  },
+                                  subtitle: {
+                                      text: '',
+                                      x: -20
+                                  },
+                                  xAxis: {
+                                      categories: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+                                              , title: {
+                                          text: 'Jours du mois',
+                                          x: -20 //center
+                                      }
+                                  },
+                                  yAxis: {
+                                      title: {
+                                          text: 'Fréquences des Anomalies'
+                                      },
+                                      plotLines: [{
+                                              value: 0,
+                                              width: 1,
+                                              color: '#808080'
+                                          }]
+                                  },
+                                  tooltip: {
+                                      formatter: function() {
+                                          return '<b>' + this.series.name + '</b><br/>' +
+                                                  this.x + ': ' + this.y;
+                                      }
+                                  },
+                                  legend: {
+                                      layout: 'vertical',
+                                      align: 'right',
+                                      verticalAlign: 'top',
+                                      x: -10,
+                                      y: 100,
+                                      borderWidth: 0
+                                  },
+                                  series: json
+                              });
+                          });
+                      });
+
+                      // });
+                      </script>
+
+{#                <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>#}
+                      <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+                      <script src="http://code.highcharts.com/highcharts.js"></script>
+                      <script src="http://code.highcharts.com/modules/exporting.js"></script>
+{% endblock %}
+                      <!-- Page Specific Plugins -->
+                  </head>
+                  <body>
+                      <div id="wrapper">
+                          <!-- Sidebar -->
+                          <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                              <!-- Brand and toggle get grouped for better mobile display -->
+                              <div class="navbar-header">
+                                  <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                      <span class="sr-only">Toggle navigation</span>
+                                      <span class="icon-bar"></span>
+                                      <span class="icon-bar"></span>
+                                      <span class="icon-bar"></span>
+                                  </button>
+                                  <a class="navbar-brand" href="{{ path('gestion_pass_homepage') }}"> Le Centre de Contrôle et Coordination des Opérations </a>
+                              </div>
+
+                              <!-- Collect the nav links, forms, and other content for toggling -->
+                              <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                  <ul class="nav navbar-nav side-nav">
+                                      <li class=""><a href="{{ path('gestion_pass_homepage') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
+                                      <li><a href="{{ path('anomalie') }}"><i class="fa fa-exclamation-triangle"></i> Anomalie</a></li>
+                                      <li><a href="{{ path('fluidite') }}"><i class="fa fa-spinner"></i> Fluidité</a></li>
+                                      <li><a href="{{ path('facilitation') }}"><i class="fa fa-male"></i> Facilitation</a></li>
+
+                                      <li class="dropdown">
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-video-camera"></i> CCTV <b class="caret"></b></a>
+                                          <ul class="dropdown-menu">
+                                              <li><a href="#">Visualisation</a></li>
+                                              <li><a href="#">Exportation</a></li>
+                                              <li><a href="#">Evenements</a></li>
+                                          </ul>
+                                      </li>
+<li class="dropdown">
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bar-chart-o"></i> Reporting <b class="caret"></b></a>
+                                          <ul class="dropdown-menu">
+                                              <li><a href="{{ path('afficher_chart_anomalie') }}">Anomalie Graph</a></li>
+                                              <li><a href="#">Fluidité Graph</a></li>
+                                              <li><a href="#">Facilitation Graph</a></li>                                              
+                                          </ul>
+                                      </li>
+                                      <li><a href="{{ path('consigne') }}"><i class="fa fa-exclamation-triangle"></i>  Consigne</a></li>
+</ul>
+                                  <ul class="nav navbar-nav navbar-right navbar-user">
+                                      <li class="dropdown messages-dropdown">
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">7</span> <b class="caret"></b></a>
+                                          <ul class="dropdown-menu">
+                                              <li class="dropdown-header">7 New Messages</li>
+                                              <li class="message-preview">
+                                                  <a href="#">
+                                                      <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                                                      <span class="name"></span>
+                                                      <span class="message">Hey there, I wanted to ask you something...</span>
+                                                      <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                                                  </a>
+                                              </li>
+                                              <li class="divider"></li>
+                                              <li class="message-preview">
+                                                  <a href="#">
+                                                      <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                                                      <span class="name">{{ app.user.username }} :</span>
+                                                      <span class="message">Hey there, I wanted to ask you something...</span>
+                                                      <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                                                  </a>
+                                              </li>
+                                              <li class="divider"></li>
+                                              <li class="message-preview">
+                                                  <a href="#">
+                                                      <span class="avatar"><img src="http://placehold.it/50x50"></span>
+                                                      <span class="name">John Smith:</span>
+                                                      <span class="message">Hey there, I wanted to ask you something...</span>
+                                                      <span class="time"><i class="fa fa-clock-o"></i> 4:34 PM</span>
+                                                  </a>
+                                              </li>
+                                              <li class="divider"></li>
+                                              <li><a href="#">View Inbox <span class="badge">7</span></a></li>
+                                          </ul>
+                                      </li>
+                                      <li class="dropdown alerts-dropdown">
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> Alerts <span class="badge">3</span> <b class="caret"></b></a>
+                                          <ul class="dropdown-menu">
+                                              <li><a href="#">Default <span class="label label-default">Default</span></a></li>
+                                              <li><a href="#">Primary <span class="label label-primary">Primary</span></a></li>
+                                              <li><a href="#">Success <span class="label label-success">Success</span></a></li>
+                                              <li><a href="#">Info <span class="label label-info">Info</span></a></li>
+                                              <li><a href="#">Warning <span class="label label-warning">Warning</span></a></li>
+                                              <li><a href="#">Danger <span class="label label-danger">Danger</span></a></li>
+                                              <li class="divider"></li>
+                                              <li><a href="#">View All</a></li>
+                                          </ul>
+                                      </li>
+                                      <li class="dropdown user-dropdown">
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ app.user.username }} <b class="caret"></b></a>
+                                          <ul class="dropdown-menu">
+                                              <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                                              <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
+                                              <li><a href=" {{ path('fos_user_change_password')}}"><i class="fa fa-gear"></i> Changer mot de passe</a></li>
+                                              <li class="divider"></li>
+                                              <li> 
+                                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                                      <a href="{{ path('fos_user_security_logout') }}"  ><i class="fa fa-power-off"></i> Log Out</a>
+{% else %}
+                                                      <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+{% endif %}
+
+                                                  </li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div><!-- /.navbar-collapse -->
+                              </nav>
+
+                              <div id="page-wrapper">
+
+{% block entete %}
+  <div class="row">
+        <div class="col-lg-12">
+            <h1>Tableau de bord</h1>
+            <ol class="breadcrumb">
+                <li class="active"><i class="fa fa-dashboard"></i> {% block breadcrumb %} Tableau de bord                {% endblock %}
+                    </li>
+            </ol>
+            
+        </div>
+    </div><!-- /.row -->
+
+{% endblock %}
+
+{% block notification %}
+ <div class="row">
+        <div class="col-lg-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading">456</p>
+                            <p class="announcement-text">Notes!</p>
+                        </div>
+                    </div>
+                </div>
+                    
+                <a href="#">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                Afficher notes
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-check fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading">12</p>
+                            <p class="announcement-text">Taches</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                Afficher taches
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading" id="icii"> {{ render(controller('GestionPassBundle:Default:nbrTotaleAno')) }}</p>
+                            <p class="announcement-text">Anomalies Pérsistantes</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{path('anomalie_en_cours')}} ">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                Afficher Anomalies
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+               <div class="col-xs-6 text-right">
+                            <p class="announcement-heading" id="icii"> {{ render(controller('GestionPassBundle:Default:nbrTotaleConsigne')) }}</p>
+                            <p class="announcement-text"> Consignes!</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                Afficher Consignes
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+{% endblock %}
+
+
+          {% block chartGeneral %}
+
+          {% endblock %}
+
+          {% block troisBlocChart %}
+{% endblock %}
+
+{% block formulaire %}
+{% endblock %}
+
+          {% block tables %}
+{% endblock %}
+
+ {% block body %}
+{% endblock %}
+                                  <!-- /.row -->
+                              </div><!-- /#page-wrapper -->
+
+                          </div><!-- /#wrapper -->
+                      </body>
+                  </html>

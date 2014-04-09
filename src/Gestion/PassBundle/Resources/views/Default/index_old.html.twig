@@ -1,0 +1,25 @@
+{% extends 'GestionPassBundle::layout.html.twig' %}
+
+
+{% block title %} {% endblock %}
+
+{% block body %}
+<h1>
+        Anomalies en cours 
+</h1>
+
+{{ render(controller('GestionPassBundle:Anomalie:anomaliesEncours')) }}
+
+<h1>
+        Facilitations en cours 
+</h1>
+
+{{ render(controller('GestionPassBundle:Facilitation:facilitationsEncours')) }}
+
+<h1>
+        Fluidité en cours 
+</h1>
+
+{{ render(controller('GestionPassBundle:Fluidite:fluiditesEncours')) }}
+
+{% endblock %}

@@ -1,0 +1,213 @@
+body {
+       background: #cecece;
+       font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+#menu {
+    margin-top: 20px !important;
+    border-bottom: 0 !important;
+    width: 60% !important;
+}
+#menu a {
+background: #000;
+color: #FFF;
+font-variant: small-caps;
+text-decoration: none;
+padding: 20px;
+font-size: 15px !important;
+border-radius: 10px;
+}
+#page {
+    width: 960px;
+    margin:auto;
+}
+#gestion_passbundle_anomalie {
+width: 40%;
+}
+
+#gestion_passbundle_anomalie div {
+float: left;
+width: 100%;
+}
+#gestion_passbundle_anomalie label {
+display: inline-block;
+}
+
+#gestion_passbundle_facilitation{
+width: 40%;
+}
+
+#gestion_passbundle_facilitation div {
+float: left;
+width: 100%;
+}
+#gestion_passbundle_facilitation label {
+display: inline-block;
+}
+
+#gestion_passbundle_fluidite {
+width: 40%;
+}
+
+#gestion_passbundle_fluidite div {
+float: left;
+width: 100%;
+}
+#gestion_passbundle_fluidite label {
+display: inline-block;
+}
+.records_list , .record_properties{
+	float:left;
+	width:100%;
+	margin-top:10px;
+}
+.records_list a, .record_properties a{
+	font-weight:bold;	
+}
+
+.records_list th, .record_properties th {
+	padding:5px;
+	background:#000;
+	color:#fff;	
+}
+.records_list td, .record_properties td {
+	background:#fff;
+	padding:5px;
+	text-align:center;
+	border-right: 1px solid #cecece;
+}
+
+tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF}
+.records_list tr {
+	border-bottom:1px solid #cecece;	
+}
+
+.records_list tr td:first-child , .record_properties tr td:first-child {
+	border-right: 1px solid #cecece;	
+}
+
+.records_list li , .record_properties li {
+	list-style:none;	
+}
+.records_list ul , .record_properties ul{
+	margin:0 !important;	
+}
+
+.newEntry {
+float: right;
+margin-top: 10px;
+margin-bottom: 10px;	
+}
+
+#footer {
+border-top: 1px solid #CCC;
+text-align: center;
+color: #999;
+font-size: 85%;
+float: left;
+width: 100%;
+}
+
+.icon-white, .nav-pills > .active > a > [class^="icon-"], .nav-pills > .active > a > [class*=" icon-"], .nav-list > .active > a > [class^="icon-"], .nav-list > .active > a > [class*=" icon-"], .navbar-inverse .nav > .active > a > [class^="icon-"], .navbar-inverse .nav > .active > a > [class*=" icon-"], .dropdown-menu > li > a:hover > [class^="icon-"], .dropdown-menu > li > a:focus > [class^="icon-"], .dropdown-menu > li > a:hover > [class*=" icon-"], .dropdown-menu > li > a:focus > [class*=" icon-"], .dropdown-menu > .active > a > [class^="icon-"], .dropdown-menu > .active > a > [class*=" icon-"], .dropdown-submenu:hover > a > [class^="icon-"], .dropdown-submenu:focus > a > [class^="icon-"], .dropdown-submenu:hover > a > [class*=" icon-"], .dropdown-submenu:focus > a > [class*=" icon-"] {
+background-image: url("../images/glyphicons-halflings-white.png");
+}
+
+
+.showLink , .editLink {
+	width:59px !important;	
+}
+
+.editLink {
+	margin-top:5px !important;
+}
+
+.addItem , #editForm {
+	float: left;
+width: 98%;
+background: #fff;
+padding: 10px;
+}
+
+#submit ,#gestion_passbundle_anomalie_submit, #gestion_passbundle_fluidite_submit,#gestion_passbundle_facilitation_submit #edit{
+	float:right;
+	margin-top:0px;
+	
+}
+
+li {
+	list-style:none;	
+}
+
+.back{
+	float:right;
+	margin-top:10px;
+}
+
+.record_actions {
+	float:left;
+	width:63%;	
+}
+
+.record_actions li {
+margin-left: 10px;
+float: right;
+}
+
+.record_actions .back{
+	float:right;
+	margin-top:20px;
+}
+
+.record_actions form {
+	margin:0 !important;
+}
+
+/*}#gestion_passbundle_facilitationtype div {
+	float:left;
+	width:100%;	
+}
+
+#gestion_passbundle_facilitationtype div label {
+	float:left;	
+}
+
+#gestion_passbundle_facilitationtype_zone {
+	float:right;	
+}
+
+ #newFacilitation , #editFacilitationForm, #newFluidite , #editFluiditeForm,#newAnomalie , #editAnomalieForm{
+	float: left;
+width: 98%;
+background: #fff;
+padding: 10px;
+}
+/*#gestion_passbundle_facilitationtype div {
+	float:left;
+	width:48%;
+	margin-right:13px;	
+}
+
+
+#gestion_passbundle_facilitationtype_heureRegle,
+#gestion_passbundle_facilitationtype_heureDetection {
+	margin-left:164px;	
+}
+
+#gestion_passbundle_facilitationtype_type , #gestion_passbundle_facilitationtype_emplacement,
+#gestion_passbundle_facilitationtype_entiteConcerne,
+#gestion_passbundle_facilitationtype_utilisateur_id{
+	float:right;	
+}
+
+*/
+#gestion_passbundle_anomalie select, #gestion_passbundle_facilitation select, #gestion_passbundle_fluidite select {
+	float:right;	
+}
+
+#header img{
+    
+height: 58px;
+border-radius: 11px;
+width: 91px;
+} 

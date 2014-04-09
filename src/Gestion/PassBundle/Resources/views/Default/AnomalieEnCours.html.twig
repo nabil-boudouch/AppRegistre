@@ -1,0 +1,175 @@
+{% extends 'GestionPassBundle::layout.html.twig' %}
+
+{% block stylesheets%}
+{{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+ <script>
+
+ {# function affiche_nbr_lignes()
+{var nbr_lignes = document.getElementById('anomalie-table').rows.length;
+return nbr_lignes;
+} #}
+{# 
+    window.onload = function(){
+    //document.getElementById("icii").innerHTMl = affiche_nbr_lignes() +"lignes";
+  
+    var nombre_lignes_facilitation = document.getElementById("facilitation-table").getElementsByTagName("TR").length -1;
+    var nombre_lignes_anomalie = document.getElementById("anomalie-table").getElementsByTagName("TR").length -1;
+    var nombre_lignes_fluidite = document.getElementById("fluidite-table").getElementsByTagName("TR").length -1;
+    var nombre_anomalies= nombre_lignes_facilitation + nombre_lignes_anomalie + nombre_lignes_fluidite;
+
+	document.getElementById("icii").innerHTML = nombre_anomalies;
+    };#}
+</script>
+ 
+{% endblock %}
+
+{% block entete %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Dashboard <small>Statistics Overview</small></h1>
+            <ol class="breadcrumb">
+                <li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
+            </ol>
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Welcome to SB Admin by <a class="alert-link" href="http://startbootstrap.com">Start Bootstrap</a>! Feel free to use this template for your admin needs! We are using a few different plugins to handle the dynamic tables and charts, so make sure you check out the necessary documentation links provided.
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+{% endblock %}
+{% block notification %}
+   {{ parent() }}
+{% endblock %}
+
+   {# {% block notification %}
+     <div class="row">
+        <div class="col-lg-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading">456</p>
+                            <p class="announcement-text">New Mentions!</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                View Mentions
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-check fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading">12</p>
+                            <p class="announcement-text">To-Do Items</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                Complete Tasks
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading" id="icii"> {{ render(controller('GestionPassBundle:Default:nbrTotaleAno')) }} </p>
+                            <p class="announcement-text"><b>Problémes persistants</b></p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <a href="{{path('anomalie_en_cours')}} ">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                Fix Issues
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <i class="fa fa-comments fa-5x"></i>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <p class="announcement-heading">56</p>
+                            <p class="announcement-text">New Orders!</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer announcement-bottom">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                Complete Orders
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <i class="fa fa-arrow-circle-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div><!-- /.row --> 
+{% endblock %}
+#}
+    
+    
+    {% block tables %}
+    <h3>Anomalies</h3>
+                {{ render(controller('GestionPassBundle:Anomalie:anomaliesEncours')) }}
+
+    <h3>Facilitations</h3>
+                {{ render(controller('GestionPassBundle:Facilitation:facilitationsEncours')) }}
+
+    <h3>Fluidités</h3>
+            {{ render(controller('GestionPassBundle:Fluidite:fluiditesEncours')) }}
+
+    {% endblock %}

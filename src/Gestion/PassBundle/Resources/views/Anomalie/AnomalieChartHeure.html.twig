@@ -1,0 +1,120 @@
+{% extends 'GestionPassBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+<style>
+
+</style>
+{{ parent() }}
+
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/gestionpass/css/chartStyle.css') }}"
+  
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{#{% javascripts '@GestionPassBundle/Resources/public/js/*' %}#}
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script>
+    $(function () {
+    $(document).ready(function() {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+    
+        var chart;
+        $('#container').highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function() {
+    
+                        // set up the updating of the chart each second
+                        var series = this.series[0];
+                        setInterval(function() {
+                            var x = (new Date()).getTime(), // current time
+                                y = Math.random();
+                            series.addPoint([x, y], true, true);
+                        }, 1000);
+                    }
+                }
+            },
+            title: {
+                text: 'Live random data'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [{
+                name: 'Random data',
+                data: (function() {
+                    // generate an array of random data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+    
+                    for (i = -19; i <= 0; i++) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()
+                        });
+                    }
+                    return data;
+                })()
+            }]
+        });
+    });
+    
+});
+        
+        </script>
+        <script src="http://code.highcharts.com/highcharts.js"></script>
+        <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+{% endblock %}
+
+{% block chartGeneral %}
+       <div id="toute_anomalies" class="row">
+  <div class="col-lg-12">
+        <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Synthése des anomalies par heure</h3>
+              </div>
+              <div class="panel-body">
+                  <div class="flot-chart">
+                  <div id="container"> </div>
+                  </div>
+              </div>
+         </div>
+  </div>
+           </div>
+
+{% endblock %}
