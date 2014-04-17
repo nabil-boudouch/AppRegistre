@@ -222,4 +222,27 @@ class Facilitation
     {
         return $this->zone;
     }
+
+    /**
+     * Set user
+     *
+     * @param string $user
+     * @return Facilitation
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return string 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

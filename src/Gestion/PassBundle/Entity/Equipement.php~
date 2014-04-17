@@ -40,8 +40,7 @@ class Equipement
     
     
     /**
-     * @var string 
-     * @ORM\Column(name="zone", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Gestion\PassBundle\Entity\Zone")
      */
     private $zone;
         

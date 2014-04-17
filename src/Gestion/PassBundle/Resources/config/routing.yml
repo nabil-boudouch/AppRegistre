@@ -382,3 +382,98 @@ consigne_delete:
     pattern:  /consigne/{id}/delete
     defaults: { _controller: "GestionPassBundle:Consigne:delete" }
     requirements: { _method: post|delete }
+
+#Camera
+camera:
+    pattern:  /camera
+    defaults: { _controller: "GestionPassBundle:Camera:index" }
+
+camera_show:
+    pattern:  /camera/{id}/show
+    defaults: { _controller: "GestionPassBundle:Camera:show" }
+
+camera_new:
+    pattern:  /camera/new
+    defaults: { _controller: "GestionPassBundle:Camera:new" }
+
+camera_create:
+    pattern:  /camera/create
+    defaults: { _controller: "GestionPassBundle:Camera:create" }
+    requirements: { _method: post }
+
+camera_edit:
+    pattern:  /camera/{id}/edit
+    defaults: { _controller: "GestionPassBundle:Camera:edit" }
+
+camera_update:
+    pattern:  /camera/{id}/update
+    defaults: { _controller: "GestionPassBundle:Camera:update" }
+    requirements: { _method: post|put }
+
+camera_delete:
+    pattern:  /camera/{id}/delete
+    defaults: { _controller: "GestionPassBundle:Camera:delete" }
+    requirements: { _method: post|delete }
+
+#Camera Range
+camerarange:
+    pattern:  /camerarange
+    defaults: { _controller: "GestionPassBundle:CameraRange:index" }
+
+camerarange_show:
+    pattern:  /camerarange/{id}/show
+    defaults: { _controller: "GestionPassBundle:CameraRange:show" }
+
+camerarange_new:
+    pattern:  /camerarange/new
+    defaults: { _controller: "GestionPassBundle:CameraRange:new" }
+
+camerarange_create:
+    pattern:  /camerarange/create
+    defaults: { _controller: "GestionPassBundle:CameraRange:create" }
+    requirements: { _method: post }
+
+camerarange_edit:
+    pattern:  /camerarange/{id}/edit
+    defaults: { _controller: "GestionPassBundle:CameraRange:edit" }
+
+camerarange_update:
+    pattern:  /camerarange/{id}/update
+    defaults: { _controller: "GestionPassBundle:CameraRange:update" }
+    requirements: { _method: post|put }
+
+camerarange_delete:
+    pattern:  /camerarange/{id}/delete
+    defaults: { _controller: "GestionPassBundle:CameraRange:delete" }
+    requirements: { _method: post|delete }
+#Exportation
+exportation:
+    pattern:  /exportation
+    defaults: { _controller: "GestionPassBundle:Exportation:index" }
+
+exportation_show:
+    pattern:  /exportation/{id}/show
+    defaults: { _controller: "GestionPassBundle:Exportation:show" }
+
+exportation_new:
+    pattern:  /exportation/new
+    defaults: { _controller: "GestionPassBundle:Exportation:new" }
+
+exportation_create:
+    pattern:  /exportation/create
+    defaults: { _controller: "GestionPassBundle:Exportation:create" }
+    requirements: { _method: post }
+
+exportation_edit:
+    pattern:  /exportation/{id}/edit
+    defaults: { _controller: "GestionPassBundle:Exportation:edit" }
+
+exportation_update:
+    pattern:  /exportation/{id}/update
+    defaults: { _controller: "GestionPassBundle:Exportation:update" }
+    requirements: { _method: post|put }
+
+exportation_delete:
+    pattern:  /exportation/{id}/delete
+    defaults: { _controller: "GestionPassBundle:Exportation:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>CameraRange</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Daterange</th>
+                <td>{{ entity.dateRange|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>Heuredeburange</th>
+                <td>{{ entity.heureDebuRange|date('H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Heurefinrange</th>
+                <td>{{ entity.heureFinRange|date('H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('camerarange') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('camerarange_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

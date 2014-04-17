@@ -150,4 +150,10 @@ class Consigne
     {
         return $this->dateConsigne;
     }
+
+public function __toString(){
+        return strval($this->getObjet());
+        
+    }
+    
 }

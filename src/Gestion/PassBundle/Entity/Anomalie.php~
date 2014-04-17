@@ -42,9 +42,8 @@ class Anomalie {
      * @ORM\ManyToOne(targetEntity="Gestion\PassBundle\Entity\Equipement")
      * 
      **/
+    
     private $equipement;
-
-   
     /**
      * @var \String
      *
@@ -52,15 +51,12 @@ class Anomalie {
      */
     private $service;
 
-      
-    
     /**
      * @var \String
      *
      * @ORM\Column(name="emplacement", type="string")
      */
     private $emplacement;
-
       
     /**
      * @var \String
@@ -76,6 +72,8 @@ class Anomalie {
      */
     private $user;    
  
+    
+
     /**
      * Get id
      *
