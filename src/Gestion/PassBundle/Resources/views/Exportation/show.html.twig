@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends 'GestionPassBundle::layout.html.twig' %}
 
 {% block body -%}
     <h1>Exportation</h1>
@@ -10,9 +10,54 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Codeexport</th>
+                <th>Code exportation</th>
                 <td>{{ entity.codeExport }}</td>
             </tr>
+            <tr>
+                <th>Bénéficiaire</th>
+                <td>{{ entity.beneficiaire }}</td>
+            </tr>
+            <tr>
+                <th>Organisme</th>
+                <td>{{ entity.organisme }}</td>
+            </tr>
+            <tr>
+                <th>Objet</th>
+                <td>{{ entity.objet }}</td>
+            </tr>
+            <tr>
+                <th>Caméras</th>
+                {% for cameraRange in entity.getCameraRanges %}
+                    <td>     
+                    {{ cameraRange.camera.nomCamera }} <br>
+                    </td>
+                {% endfor %}  
+            </tr>
+           <tr>
+                <th>Dates</th>
+                {% for cameraRange in entity.getCameraRanges %}
+                    <td>     
+                    {{ cameraRange.dateRange|date('Y-m-d')}} <br>
+                    </td>
+                {% endfor %}  
+            </tr>
+            <tr>
+                <th>Heure debut</th>
+                {% for cameraRange in entity.getCameraRanges %}
+                    <td>     
+                    {{ cameraRange.heureDebuRange|date('H:i:s')  }}<br>
+                    </td>
+                {% endfor %}  
+            </tr>
+             <tr>
+                <th>Heure Fin</th>
+                {% for cameraRange in entity.getCameraRanges %}
+                    <td>     
+                     {{ cameraRange.heureFinRange|date('H:i:s') }} <br>
+                    </td>
+                {% endfor %}  
+            </tr>
+
         </tbody>
     </table>
 

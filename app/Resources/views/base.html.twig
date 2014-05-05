@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
-
         <title>{% block title %} C.C.O {% endblock %}</title>  
 
         <!-- Bootstrap core CSS -->
@@ -14,16 +12,15 @@
 {% block stylesheets %}
 
     {% stylesheets 
-        '@GestionPassBundle/Resources/public/css/bootstrap-sb.css' 
-        '@GestionPassBundle/Resources/public/css/sb-admin.css'
-        '@GestionPassBundle/Resources/public/css/self.css' 
-        '@GestionPassBundle/Resources/public/css/font-awesome.min.css' 
+        'bundles/gestionpass/css/bootstrap-sb.css' 
+        'bundles/gestionpass/css/sb-admin.css'
+        'bundles/gestionpass/css/self.css' 
+        'bundles/gestionpass/css/font-awesome.css' 
 
 filter ='yui_css,cssrewrite'  %}        
         <link rel="stylesheet" href="{{asset_url}}" type="text/css" />    
      {% endstylesheets %}
         <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
         <style>
                 #container{
@@ -32,23 +29,21 @@ filter ='yui_css,cssrewrite'  %}
                     margin: 0 auto; 
                     background: url({{asset('bundles/gestionpass/images/ajax-loader.gif')}} ) no-repeat ;    
                     background-position-x: 482px;
-                    background-position-y: 200px;
-                }
-            </style>
+                    background-position-y: 200px;                }
+        </style>
             <link rel="stylesheet" type="text/css" href="{{ asset('bundles/gestionpass/css/chartStyle.css') }}"
+
 {% endblock %}
-
                   <!-- JavaScript -->
-
 {% block javascripts %}            
-
     {%  javascripts   
-         '@GestionPassBundle/Resources/public/js/jquery-1.10.2.js' 
-         '@GestionPassBundle/Resources/public/js/bootstrap-sb.js'
-         '@GestionPassBundle/Resources/public/js/tablesorter/jquery.tablesorter.js'
-         '@GestionPassBundle/Resources/public/js/tablesorter/tables.js'
+         'bundles/gestionpass/js/jquery-1.10.2.js' 
+         'bundles/gestionpass/js/bootstrap-sb.js'
+         'bundles/gestionpass/js/tablesorter/jquery.tablesorter.js'
+         'bundles/gestionpass/js/tablesorter/tables.js'
 filter='yui_js' %}
-                  <script  src="{{asset_url}}" type="text/javascript" ></script>                        
+
+            <script  src="{{asset_url}}" type="text/javascript" ></script>                        
 {% endjavascripts %}
                   <script>
                       varConf = "{{path('chart_anomalie')}}";
@@ -148,15 +143,9 @@ filter='yui_js' %}
                                       <li><a href="{{ path('anomalie') }}"><i class="fa fa-exclamation-triangle"></i> Anomalie</a></li>
                                       <li><a href="{{ path('fluidite') }}"><i class="fa fa-spinner"></i> Fluidité</a></li>
                                       <li><a href="{{ path('facilitation') }}"><i class="fa fa-male"></i> Facilitation</a></li>
+                                      <li><a href="{{ path('exportation') }}"><i class="fa fa-video-camera"></i> Exportation Caméra </a></li>
 
-                                      <li class="dropdown">
-                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-video-camera"></i> CCTV <b class="caret"></b></a>
-                                          <ul class="dropdown-menu">
-                                              <li><a href="#">Visualisation</a></li>
-                                              <li><a href="#">Exportation</a></li>
-                                              <li><a href="#">Evenements</a></li>
-                                          </ul>
-                                      </li>
+                                    
 <li class="dropdown">
                                           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bar-chart-o"></i> Reporting <b class="caret"></b></a>
                                           <ul class="dropdown-menu">

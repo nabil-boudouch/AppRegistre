@@ -1,52 +1,243 @@
-{% extends '::base.html.twig' %}
+{% extends 'GestionPassBundle::layout.html.twig' %}
+{% block stylesheets %}
+{{ parent()}}
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/gestionpass/css/bootstrap-sb.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/gestionpass/css/bootstrap-datetimepicker.min.css') }}" />
+<style>
+        #gestion_passbundle_exportation_submit{
 
-{% block body -%}
-    <h1>Exportation list</h1>
+            float: right;
+            margin-top: -30px;
+        }    
+        .label-organisme {
+            display: block !important;    
+        }
+        .add{
+            margin-top: 15px;
+            }
+            </style>
+{% endblock %}
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Code export</th>
-                   <th>Cameras</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+{% block javascripts %}
+{{ parent()}}
+
+    <script src="{{ asset('bundles/gestionpass/js/moment.min.js') }}" type="text/javascript" ></script>
+
+    <script src="{{ asset('bundles/gestionpass/js/datetimepicker.js') }}" type="text/javascript" ></script>
+
+{# Voici le script en question : #}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // On rÃ©cupÃ¨re la balise <div> en question qui contient l'attribut Â« data-prototype Â» qui nous intÃ©resse.
+            var $container = $('div#gestion_passbundle_exportation_CameraRanges');
+
+            // On ajoute un lien pour ajouter une nouvelle catÃ©gorie
+            //   var $lienAjout = $('<a href="#" id="ajout_categorie" class="btn">Ajouter une CamÃ©ra</a>');
+            //   $container.append($lienAjout);
+            // On ajoute un nouveau champ Ã  chaque clic sur le lien d'ajout.
+            //  $lienAjout.click(function(e) {
+            //    ajouterCategorie($container);
+            //    e.preventDefault(); // Ã©vite qu'un # apparaisse dans l'URL
+            //    return false;
+            // });
+            var $lientAjoutTheme = $('.add');
+            $lientAjoutTheme.click(function(e) {
+                ajouterCategorie($container);
+                e.preventDefault(); // Ã©vite qu'un # apparaisse dans l'URL
+                return false;
+            });
+
+            // On dÃ©finit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+            var index = $container.find(':input').length;
+
+            // On ajoute un premier champ directement s'il n'en existe pas dÃ©jÃ  un (cas d'un nouvel article par exemple).
+            if (index == 0) {
+                ajouterCategorie($container);
+
+                //on ajoute la class form-group de bootstrap au div ajoutÃ© pour qu"elle soit afficher inline
+                //   var child = document.querySelector('#gestion_passbundle_exportation_CameraRanges');
+                //  cibleAddClass(child,'form-group');
+            } else {
+                // Pour chaque catÃ©gorie dÃ©jÃ  existante, on ajoute un lien de suppression
+                $container.children('div').each(function() {
+                    ajouterLienSuppression($(this));
+                });
+            }
+
+            // La fonction qui ajoute un formulaire Categorie
+            function ajouterCategorie($container) {
+
+                // Dans le contenu de l'attribut Â« data-prototype Â», on remplace :
+                // - le texte "__name__label__" qu'il contient par le label du champ
+                // - le texte "__name__" qu'il contient par le numÃ©ro du champ
+                var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'CamÃ©ra nÂ°' + (index + 1))
+                        .replace(/__name__/g, index));
+
+                // On ajoute au prototype un lien pour pouvoir supprimer la catÃ©gorie
+                ajouterLienSuppression($prototype);
+                // On ajoute le prototype modifiÃ© Ã  la fin de la balise <div>
+                $container.append($prototype);
+                // Enfin, on incrÃ©mente le compteur pour que le prochain ajout se fasse avec un autre numÃ©ro
+
+                var $idDate = '#gestion_passbundle_exportation_CameraRanges_' + index + '_dateRange';
+                var $idHeurDeb = '#gestion_passbundle_exportation_CameraRanges_' + index + '_heureDebuRange';
+                var $idHeurFin = '#gestion_passbundle_exportation_CameraRanges_' + index + '_heureFinRange';
+
+                $($idDate).datetimepicker({
+                    pickTime: false,
+                    format: 'yyyy-MM-dd',
+                    language: 'fr',
+                    autoclose: true,
+                    showToday: true
+                });
+
+                $($idHeurDeb).datetimepicker({
+                    language: 'fr',
+                    pickDate: false,
+                    useSeconds: true,
+                    format: 'HH:mm:ss'
+                });
+
+                $($idHeurFin).datetimepicker({
+                    language: 'fr',
+                    pickDate: false,
+                    useSeconds: true,
+                    format: 'HH:mm:ss'
+                });
+                index++;
+
+            }
+            // La fonction qui ajoute un lien de suppression d'une catÃ©gorie
+            function ajouterLienSuppression($prototype) {
+                // CrÃ©ation du lien
+                $lienSuppression = $('<a href="#" class="btn btn-danger" style="margin-top: 22px ; margin-left: 10px;">Supprimer</a>');
+                // Ajout du lien
+                $prototype.append($lienSuppression);
+                // Ajout du listener sur le clic du lien
+                $lienSuppression.click(function(e) {
+                    $prototype.remove();
+                    e.preventDefault(); // Ã©vite qu'un # apparaisse dans l'URL
+                    index--;
+                    return false;
+                });
+            }
+
+            //la fonction qui ajoute une class a un element donnÃ©s 
+
+            function addClass($element, $myClass) {
+                $element.className += ' ' + $myClass;
+            }
+            //la fonction qui cible un element et lui ajoute une class avec addClass(a,b)
+            function cibleAddClass($cible, $class) {
+                divChild = $cible.getElementsByTagName('DIV');
+                for (var i = 0; i < divChild.length; i++) {
+                    $container.children('div').each(function() {
+                        var $ele = divChild[i];
+                        addClass($ele, $class);
+
+                    });
+                }
+            }
+
+            // ajout class btn-default au boutton submit generé par le form_reset 
+            button_submit = document.getElementById('gestion_passbundle_exportation_submit'),
+                    addClass(button_submit, 'newEntry btn btn-primary row-fluid');
+        });
+
+        </script>
+
+
+{% endblock %}
+{% block breadcrumb %} {{ parent()}} | Exportation 
+{% endblock %}
+
+{% block formulaire %}
+        {{ render(controller('GestionPassBundle:Exportation:new')) }}
+{% endblock %}
+
+{% block tables -%}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped tablesorter">
+                <thead>
+                    <tr>
+                        <th class="header">Code Exportation <i class="fa fa-unsorted"></i></th>
+                        <th class="header">Bénéficiaire <i class="fa fa-unsorted"></i></th>
+                        <th class="header">Organisme <i class="fa fa-unsorted"></i></th>
+                        <th class="header">Objet <i class="fa fa-unsorted"></i></th>
+                        <th class="header">Cameras <i class="fa fa-unsorted"></i></th>
+                        <th class="header">Date <i class="fa fa-unsorted"></i></th>
+                        <th class="header">Heure debut: <i class="fa fa-unsorted"></i></th>
+                        <th class="header">Heure Fin: <i class="fa fa-unsorted"></i></th>
+                        <th class="header">Exporté par/ Le :  <i class="fa fa-unsorted"></i></th>
+                        <th class="header">Suivi <i class="fa fa-unsorted"></i></th>
+                    </tr>
+                </thead>             
+
+                <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('exportation_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.codeExport }}</td>
-           
-{#<td>
-        {% for cameraRange in entity.getCameraRanges %}
+                        <tr>
 
-                        {{ cameraRange }}
+                            <td>{{ entity.codeExport }}</td>
+                            <td>{{ entity.beneficiaire }}</td>
+                            <td>{{ entity.organisme }}</td>
+                            <td>{{ entity.objet }}</td>
 
-                        {% endfor %}
-</td>#}
-                <td>
-                    
-                <ul>
-                    <li>
-                        <a href="{{ path('exportation_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    
-                    <li>
-                        <a href="{{ path('exportation_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+                            <td>
+                                <ul>
+                          {% for cameraRange in entity.getCameraRanges %}
+                                        <li>
+                                 {{ cameraRange.camera.nomCamera }} <br>
+                                            </li>
+                                {% endfor %}  
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                          {% for cameraRange in entity.getCameraRanges %}
+                                                <li>                                    
+{{ cameraRange.dateRange|date('Y-m-d')}} <br>
+                                                    </li>
+                             {% endfor %}                                
+                                                </ul>
+                                            </td>
+
+                                            <td>
+                                                <ul>
+                          {% for cameraRange in entity.getCameraRanges %}
+                                                        <li>                               
+{{ cameraRange.heureDebuRange|date('H:i:s')  }}<br>
+                                                            </li>                           
+  {% endfor %}                                
+                                                 </ul>
+
+                                              </td>
+                                                    <td>
+                                                        <ul>
+                          {% for cameraRange in entity.getCameraRanges %}
+                                                                <li>                               
+{{ cameraRange.heureFinRange|date('H:i:s') }} <br>
+                                                                    </li>                             {% endfor %}                                
+                                                                </ul>
+                                                            </td>
+                                                            <td>{{ entity.user}} {% if entity.dateSaisie %} <br>
+                                                                <b>Le:</b> {{ entity.dateSaisie|date('Y-m-d ') }} <br>
+                                                                <b>à:</b> {{ entity.dateSaisie|date('H:i:s') }}
+                                {% endif %}</td>
+                                                            </td> 
+                                                            <td>                    
+                                                                <ul>
+                                                                    <li>
+                                                                        <a href="{{ path('exportation_show', { 'id': entity.id }) }}">show</a>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <a href="{{ path('exportation_edit', { 'id': entity.id }) }}">edit</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+                                                    </tbody>
+                                                </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('exportation_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
     {% endblock %}

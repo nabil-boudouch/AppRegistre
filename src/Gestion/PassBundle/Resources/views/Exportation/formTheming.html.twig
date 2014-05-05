@@ -1,0 +1,76 @@
+{% block collection_widget %}
+{% spaceless %}
+<div class="collection">
+{% if prototype is defined %}
+{% set attr = attr|merge({'data-prototype': block('collection_item_widget') }) %}
+{% endif %}
+        <div {{ block('widget_container_attributes') }}>
+{{ form_errors(form) }}
+                <ul>
+{% for rows in form %}
+                        <li class="liste-proto">
+{% set fieldNum = 1 %}
+{% for row in rows %}
+               <div class="field{{ fieldNum }}">
+{{ form_label(row) }}
+{{ form_widget(row, { 'attr': { 'class': 'form-group' }}) }}
+               </div>
+{% set fieldNum = fieldNum + 1 %}
+{% endfor %}
+                                </li>
+{% endfor %}
+                            </ul>
+{{ form_rest(form) }}
+                        </div>
+                        <a class="add btn btn-default" title="Add" href="#">
+                            <div style="display: none;"></div>
+                            <span>Ajouter Camera</span>
+                        </a>
+                    </div>
+
+{% endspaceless %}
+{% endblock collection_widget %}
+
+{% block collection_item_widget %}
+{% spaceless %}
+<li class="liste-proto" style="list-style-type: none;">
+{% set fieldNum = 1 %}
+{% for row in prototype %}
+                            <div class="field{{ fieldNum }} form-group">
+{{ form_label(row) }}
+                                    
+{% if fieldNum == 2 %}
+
+                                    <div class='input-group date datepicker'>
+                   {{ form_widget(row, { 'attr': { 
+                                            'class': 'form-control input-append date',
+'data-date-format' : 'YYYY-MM-DD' 
+                                            } }) }}
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                 </div>
+                                    
+{% elseif fieldNum ==3 or fieldNum == 4 %}
+               <div class='input-group date timepicker'>
+                {{ form_widget(row, { 'attr': { 
+                                        'class': 'form-control',
+ } }) }}
+                 <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
+                 </span>
+               </div>
+{% elseif fieldNum ==1 %}
+                                    {{ form_widget(row, { 'attr': { 'class': 'form-control' } }) }}
+                  
+{% endif %}
+                                    </div>
+{% set fieldNum = fieldNum + 1 %}
+{% endfor %}
+
+                                </li>
+{% endspaceless %}
+{% endblock collection_item_widget %}
+
+{#                            and then in the template containing the form you want to customise, apply it to your form by doing this:
+
+
+{% form_theme form 'YourBundle:Deal:Theme/_field-prototype.html.twig' %}#}

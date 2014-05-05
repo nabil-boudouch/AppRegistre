@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Gestion\PassBundle\Entity\CameraRange;
+use Gestion\PassBundle\Entity\Camera;
+
 use Gestion\PassBundle\Form\CameraRangeType;
 
 /**

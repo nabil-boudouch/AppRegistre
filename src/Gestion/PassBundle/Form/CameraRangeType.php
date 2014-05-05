@@ -14,16 +14,28 @@ class CameraRangeType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                 ->add('Camera')
+                 ->add('Camera','entity', array(
+    'class' => 'GestionPassBundle:Camera',
+    'property' => 'nomCamera',))
+                
                 ->add('dateRange', 'date', array(
-                    'attr' => array('class' => 'form-control datepicker'),
+                    'widget' => 'single_text',
+                    'input' => 'datetime',
+                    'format' => 'yyyy-MM-dd',
+                    'attr' => array('class' => 'form-control'),
                     'label'=>'Date'
                 ))
                 ->add('heureDebuRange', 'time', array(
+                    'widget' => 'single_text',
+                    'input' => 'datetime',
+                    'with_seconds' => true,
                     'attr' => array('class' => 'form-control '),
                     'label'=>'Heure Debut'
                 ))
                 ->add('heureFinRange', 'time', array(
+                    'widget' => 'single_text',
+                    'input' => 'datetime',  
+                    'with_seconds' => true,
                     'attr' => array('class' => 'form-control'),
                     'label'=>'Heure Fin'
                 ))      

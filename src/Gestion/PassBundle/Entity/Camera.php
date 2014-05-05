@@ -19,6 +19,7 @@ class Camera
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
+    
     private $id;
 
     /**
@@ -26,9 +27,9 @@ class Camera
      *
      * @ORM\Column(name="nomCamera", type="string", length=100)
      */
+
     private $nomCamera;
-
-
+   
     /**
      * Get id
      *
@@ -51,7 +52,6 @@ class Camera
     
         return $this;
     }
-
     /**
      * Get nomCamera
      *
@@ -62,9 +62,10 @@ class Camera
         return $this->nomCamera;
     }
  public function __toString(){
-        return strval($this->getNomCamera());
+        return strval($this->getId());
         
     }
     
     
-    }
+ 
+}

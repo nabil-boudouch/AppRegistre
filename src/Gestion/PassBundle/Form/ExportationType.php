@@ -14,9 +14,25 @@ class ExportationType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('codeExport')
+                
+                ->add('beneficiaire', 'text' ,array(
+                   'label' => 'Nom bénéficiaire'
+               ))
+               ->add('organisme', 'choice' , array(                   
+                      'choices' => array(
+                            'DGSN' =>'DGSN',
+                            'PJ' =>'PJ',
+                            'GR' =>'Gendarmerie Royale',
+                            'DST' =>'DST',
+                            'DGED' =>'DGED',
+                            'ONDA' =>'ONDA'
+                         )
+                   ))
+            ->add('objet', 'text' ,array(
+                   'label' => 'Objet de l\'exportation'
+               )) 
                 ->add('CameraRanges', 'collection', array(
-                    'label' => 'Caméras sollicitées',
+                    'label' => ' ',
                     'type' => new CameraRangeType(),
                     'allow_add' => true,
                     'allow_delete' => true,

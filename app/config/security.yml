@@ -54,6 +54,9 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
+        assets:
+            pattern:  ^/(_(profiler|wdt)|css|images|js|fonts)/
+            security: false  
         main:
             pattern: ^/
             form_login:
@@ -77,4 +80,4 @@ security:
         - { path: ^/home, role: ROLE_USER }
         - { path: ^/afficherchartAno, role: ROLE_USER }
         - { path: ^/consigne, role: ROLE_USER  }
-
+        - { path: ^/exportation, role: ROLE_USER  }

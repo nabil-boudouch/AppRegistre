@@ -1,99 +1,6 @@
-{% extends 'GestionPassBundle::layout.html.twig' %}
-{% block javascripts %}
-<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-{# Voici le script en question : #}
-<script type="text/javascript">
-    $(document).ready(function() {
-        // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-        var $container = $('div#gestion_passbundle_exportation_CameraRanges');
-        // On ajoute un lien pour ajouter une nouvelle catégorie
-        var $lienAjout = $('<a href="#" id="ajout_categorie" class="btn">Ajouter une Caméra</a>');
-        $container.append($lienAjout);
-        // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-        $lienAjout.click(function(e) {
-            ajouterCategorie($container);
-            e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-            return false;
-        });
-        // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-        var index = $container.find(':input').length;
+{% form_theme form 'GestionPassBundle:Exportation:formTheming.html.twig' %}
 
-        // On ajoute un premier champ directement s'il n'en existe pas déjà un (cas d'un nouvel article par exemple).
-        if (index == 0) {
-            ajouterCategorie($container);
-            
-            //on ajoute la class form-group de bootstrap au div ajouté pour qu"elle soit afficher inline
-            var child = document.querySelector('#gestion_passbundle_exportation_CameraRanges');
-            cibleAddClass(child,'form-group');
-        } else {
-            // Pour chaque catégorie déjà existante, on ajoute un lien de suppression
-            $container.children('div').each(function() {
-                ajouterLienSuppression($(this));
-            });
-        }
-
-        // La fonction qui ajoute un formulaire Categorie
-        function ajouterCategorie($container) {
-            // Dans le contenu de l'attribut « data-prototype », on remplace :
-            // - le texte "__name__label__" qu'il contient par le label du champ
-            // - le texte "__name__" qu'il contient par le numéro du champ
-            var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Caméra n°' + (index + 1))
-                    .replace(/__name__/g, index));
-            // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
-            ajouterLienSuppression($prototype);
-            // On ajoute le prototype modifié à la fin de la balise <div>
-            $container.append($prototype);
-            // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-            index++;
-            
-        var child = document.querySelector('#gestion_passbundle_exportation_CameraRanges');
-            cibleAddClass(child,'form-group');
-         
-    }
-        // La fonction qui ajoute un lien de suppression d'une catégorie
-        function ajouterLienSuppression($prototype) {
-            // Création du lien
-            $lienSuppression = $('<a href="#" class="btn btn-danger">Supprimer</a>');
-            // Ajout du lien
-            $prototype.append($lienSuppression);
-            // Ajout du listener sur le clic du lien
-            $lienSuppression.click(function(e) {
-                $prototype.remove();
-                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-                index--;
-                return false;
-            });
-        }
-
-        //la fonction qui ajoute une class a un element donnés 
-
-        function addClass($element, $myClass) {
-            $element.className += ' ' + $myClass;
-        }
-       
-    //la fonction qui cible un element et lui ajoute une class avec addClass(a,b)
-        function cibleAddClass($cible , $class){
-            divChild = $cible.getElementsByTagName('DIV');
-            for (var i = 0; i < divChild.length; i++) {
-                $container.children('div').each(function() {
-                    var $ele = divChild[i];
-                    addClass($ele, $class);
-
-    });
-            }
-        }
-    });
-    
-
-    </script>
-
-
-{% endblock %}
-
-
-
-
-{% block formulaire%}
+{% block formulaire %}
 
     <div class="row">
         <div class="col-lg-12">
@@ -105,30 +12,44 @@
                     <form  role="form" class="form-inline" action= "{{ path('exportation_create') }} " method="post"  {{ form_enctype(form) }} >
                         <div class="error form-group">{{ form_errors(form) }}
                         </div>
+            
+                     <div class="form-group">
+                                    {{ form_label(form.beneficiaire) }}
+                                    {{ form_errors(form.beneficiaire) }}
+                                    {{ form_widget(form.beneficiaire,{
+                                    'id' :'beneficiaire', 
+            'attr': {
+                                     'class' : 'form-control',
+                            },
+                            }) }}
+                        </div> <br>
                         <div class="form-group">
-                            <label>  {{ form_label(form.codeExport) }}</label>
-                        {{ form_errors(form.codeExport) }}
-                        {{ form_widget(form.codeExport,{
-                        'id' :'codeExport', 
+
+                         {{ form_label(form.organisme) }}
+                        {{ form_errors(form.organisme) }}
+                        {{ form_widget(form.organisme,{
+                        'id' :'organisme', 
+'attr': {
+                         'class' : 'form-control label-organisme',
+                },
+                }) }}
+                        </div> <br>
+                                          <div class="form-group">
+                        {{ form_label(form.objet) }}
+                        {{ form_errors(form.objet) }}
+                        {{ form_widget(form.objet,{
+                        'id' :'objet', 
 'attr': {
                          'class' : 'form-control',
                 },
                 }) }}
-                        </div>
+                        </div> <br> 
 {{ form_rest(form) }}
 
                     </form>
-
-                    <ul class="record_actions">
-                        <li>
-                            <a href="{{ path('exportation') }}">
-                                Back to the list
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                                    </div>
             </div>
         </div>
-
+        </div>
 {% endblock %}
 

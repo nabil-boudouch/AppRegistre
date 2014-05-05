@@ -3,7 +3,7 @@
 namespace Gestion\PassBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Gestion\PassBundle\Entity\Camera;
 /**
  * CameraRange
  *
@@ -22,16 +22,10 @@ class CameraRange
     private $id;
 
     
-    /**
-   * @ORM\ManyToMany(targetEntity="Gestion\PassBundle\Entity\Camera", cascade={"persist"})
-   */
-     
-    private $Camera;
-
-    /**
+       /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DateRange", type="date")
+     * @ORM\Column(name="DateRange", type="datetime")
      */
     
     private $dateRange;
@@ -39,16 +33,22 @@ class CameraRange
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="HeureDebuRange", type="time")
+     * @ORM\Column(name="HeureDebuRange", type="datetime")
      */
     private $heureDebuRange;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="HeureFinRange", type="time")
+     * @ORM\Column(name="HeureFinRange", type="datetime")
      */
     private $heureFinRange;
+
+     /**
+      * @ORM\ManyToOne(targetEntity="Gestion\PassBundle\Entity\Camera")
+      * 
+      */
+    private $camera;
     
     /**
      * Get id
@@ -128,7 +128,31 @@ class CameraRange
     {
         return $this->heureFinRange;
     }
+    /**
+     * Constructor
+     */
+     
+     public function __toString(){
+        return strval($this->getId());        
+    }
+    /**
+     * Set camera
+     *
+     * @param \Gestion\PassBundle\Entity\Camera $camera
+     * @return CameraRange
+     */
+    public function setCamera(\Gestion\PassBundle\Entity\Camera $camera)
+    {
+        $this->camera = $camera;    
+        return $this;
+    }
 
-    
-
-}
+    /**
+     * Get camera
+     * @return \Gestion\PassBundle\Entity\Camera 
+     */
+    public function getCamera()
+    {
+        return $this->camera;
+    }       
+    }

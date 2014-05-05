@@ -4,12 +4,13 @@
 {{ parent() }}
 
 {% endblock %}
-{% block breadcrumb %} {{ parent()}} | Anomalie
+{% block breadcrumb %} {{ parent()}} 
 {% endblock %}
 
 {% block notification %}
    {{ parent() }}
 {% endblock %}
+
 {% block formulaire %}
         {{ render(controller('GestionPassBundle:Anomalie:new')) }}
 
@@ -56,4 +57,4 @@
             </table>
 </div>
     
-    {% endblock %}
+{% endblock %}

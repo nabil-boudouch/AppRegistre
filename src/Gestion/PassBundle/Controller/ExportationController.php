@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Gestion\PassBundle\Entity\Exportation;
+use Gestion\PassBundle\Entity\CameraRange;
 use Gestion\PassBundle\Form\ExportationType;
 
 /**
@@ -15,11 +16,15 @@ use Gestion\PassBundle\Form\ExportationType;
 class ExportationController extends Controller
 {
 
+ 
     /**
      * Lists all Exportation entities.
      *
      */
-    public function indexAction()
+
+        public static $compt=1 ;
+        
+public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -39,14 +44,24 @@ class ExportationController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $username = $user->getUsername();
+        $entity->setUser($username);
+
+        $dateSaisie = new \DateTime('now');
+        $entity->setDateSaisie($dateSaisie);
+        
+        //le code de l'exportation est geré automatiquement par une variable unique 
+       
+        $entity->setCodeExport('Exp'. self::$compt);
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('exportation_show', array('id' => $entity->getId())));
+            
+            return $this->redirect($this->generateUrl('exportation'));
         }
-
         return $this->render('GestionPassBundle:Exportation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
