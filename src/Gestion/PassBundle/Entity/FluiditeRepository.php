@@ -26,4 +26,75 @@ class FluiditeRepository extends EntityRepository
         return $result  ;
     
 }
-}
+
+ public function FluiditeParSce($service) {
+
+        $annee_encours = date('Y');
+        $mois_encours = date('m');
+        $begin = date($annee_encours . '-' . $mois_encours . '-01');
+        $jours_encours = date('d');
+
+//retourne la date de demain par rapport a la date du system
+        $end = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d") + 1, date("Y")));
+
+        $qb = $this->createQueryBuilder('flu');
+        $qb->select('flu.dateDetection')        //            $qb->select('count(a.id)')
+                ->where('flu.service = :service')
+                ->setParameter('service', $service)
+                ->andWhere('flu.dateDetection BETWEEN :begin AND :end')
+                ->setParameter('begin', $begin)
+                ->setParameter('end', $end)
+                ->orderBy('flu.dateDetection', 'ASC');
+        $arrayAss = $qb->getQuery()
+                ->getArrayResult();
+
+        $arrayResult = array();
+        $arrayResult['name'] = 'Sce ' . $service;
+
+        $i = 1;
+
+        for ($day = 1; $day <= $jours_encours; $day++) {
+            $compte = 0;
+            foreach ($arrayAss as $data) {
+                if ($day <= 9) {
+                    if ($data['dateDetection']->format('Y-m-d') == date($annee_encours . '-' . $mois_encours . '-0' . $day)) {
+                        $compte++;
+                    }
+                } else {
+                    if ($data['dateDetection']->format('Y-m-d') == date($annee_encours . '-' . $mois_encours . '-' . $i)) {
+                        $compte++;
+                    }
+                }
+            }
+            $arrayResult['data'][] = $compte;
+            $i++;
+        }
+        return $arrayResult;
+    }
+
+    //fluidite pie par service 
+
+    public function fluiditesPieParSce($service){
+        $annee_encours = date('Y');
+        $mois_encours = date('m');
+        $begin = date($annee_encours . '-' . $mois_encours . '-01');
+//retourne la date de demain par rapport a la date du system
+        $end = date("Y-m-d", mktime(0, 0, 0, date("m"), date("d") + 1, date("Y")));
+        $qb = $this->createQueryBuilder('flu');
+        $qb->select('count(flu.id)')        //            $qb->select('count(a.id)')
+                ->where('flu.service = :service')
+                ->setParameter('service', $service)
+                ->andWhere('flu.dateDetection BETWEEN :begin AND :end')
+                ->setParameter('begin', $begin)
+                ->setParameter('end', $end)
+                ->orderBy('flu.dateDetection', 'ASC');
+        $query=$qb->getQuery();
+        $result= $query->getSingleResult();
+
+        $arrayResult = array();
+        $arrayResult[] = 'Sce ' . $service;
+    $arrayResult[]=$result[1];
+        return $arrayResult;
+
+        }        
+                    }

@@ -2,11 +2,13 @@
 
 namespace Gestion\PassBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use DateTime;
 use Gestion\PassBundle\Entity\Fluidite;
 use Gestion\PassBundle\Form\FluiditeType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Fluidite controller.
@@ -44,7 +46,7 @@ class FluiditeController extends Controller
         $entity = new Fluidite();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        $dateDetection= new \DateTime('now');
+        $dateDetection= new DateTime('now');
         $entity->setDateDetection($dateDetection);
         
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -56,8 +58,7 @@ class FluiditeController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('fluidite_show', array('id' => $entity->getId())));
-        }
+       return $this->redirect($this->generateUrl('fluidite'));        }
 
         return $this->render('GestionPassBundle:Fluidite:new.html.twig', array(
             'entity' => $entity,
@@ -70,7 +71,7 @@ class FluiditeController extends Controller
     *
     * @param Fluidite $entity The entity
     *
-    * @return \Symfony\Component\Form\Form The form
+    * @return Form The form
     */
     private function createCreateForm(Fluidite $entity)
     {
@@ -149,7 +150,7 @@ class FluiditeController extends Controller
     *
     * @param Fluidite $entity The entity
     *
-    * @return \Symfony\Component\Form\Form The form
+    * @return Form The form
     */
     private function createEditForm(Fluidite $entity)
     {
@@ -226,7 +227,7 @@ class FluiditeController extends Controller
      *
      * @param mixed $id The entity id
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createDeleteForm($id)
     {
@@ -274,7 +275,7 @@ class FluiditeController extends Controller
     }
     
 public function reglerFluidite(Fluidite $fluid){
-        $fluid->setDateReglement(new \DateTime('now'));
+        $fluid->setDateReglement(new DateTime('now'));
         
     }
     
@@ -291,4 +292,139 @@ public function reglerFluidite(Fluidite $fluid){
                     'entities' => $entities,
         ));
     } 
+ 
+    //chart fluidite action
+        public function chartFluiditeAction() {
+
+            $nbrFluiditeDGSNMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Fluidite')
+                ->FluiditeParSce('dgsn');
+
+            $nbrFluiditeExplMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Fluidite')
+                ->FluiditeParSce('exploitation');
+    
+            
+            $resultat = array();
+
+        array_push($resultat, $nbrFluiditeDGSNMois);
+        array_push($resultat, $nbrFluiditeExplMois);
+
+        $response = new Response(json_encode($resultat));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+    
+    //afficher chart fluidite
+        public function afficherChartFluiditeAction() {
+
+        $response = $this->chartFluiditeAction();
+        return $this->render("GestionPassBundle:Fluidite:FluiditeChart.html.twig", array(
+                    'response' => $response,
+        ));
+    }
+    
+    //fluidite pie chart
+    
+    //anomalie pie pourcentage  Return Json Response
+    public function chartFluiditePieAction() {
+
+        $nbrFluiditeDGSNMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Fluidite')
+                ->fluiditesPieParSce('DGSN');
+        $nbrFluiditeExplMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Fluidite')
+                ->fluiditesPieParSce('exploitation');
+
+        $total = $nbrFluiditeDGSNMois[1] + $nbrFluiditeExplMois[1] ;
+        $prcDGSN = $this->Pourcentage($nbrFluiditeDGSNMois[1], $total);
+        $prcExpl = $this->Pourcentage($nbrFluiditeExplMois[1], $total);
+
+        $nbrFluiditeDGSNMois[1] = $prcDGSN;
+        $nbrFluiditeExplMois[1] = $prcExpl;
+
+        $resultat = array();
+        array_push($resultat, $nbrFluiditeExplMois);
+        array_push($resultat, $nbrFluiditeDGSNMois);
+       
+        $response = new Response(json_encode($resultat, JSON_NUMERIC_CHECK));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+//Afficher Chart Pie 
+    public function afficherChartFluiditePieAction() {
+        $response = $this->chartFluiditePieAction();
+        return $this->render("GestionPassBundle:Fluidite:ChartFluiditePie.html.twig", array(
+                    'response' => $response,
+        ));
+    }
+   
+    //Fluidite par heure 
+    //
+public function chartFluiditeHeureAction() {
+        $nbrFluiditeDGSNMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Fluidite')
+                ->FluiditeParSce('DGSN');
+
+        $resultat = array();
+
+        array_push($resultat, $nbrFluiditeDGSNMois);
+
+        $response = new Response(json_encode($resultat));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function afficherChartFluiditeHeureAction() {
+
+        $response = $this->chartFluiditeAction();
+        return $this->render("GestionPassBundle:Fluidite:FluiditeChartHeure.html.twig", array(
+                    'response' => $response,
+        ));
+    }
+
+    //fluidité du service exploitation 
+    
+    public function chartFluExploitationAction() {
+        $nbrFluExplMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Fluidite')
+                ->FluiditeParSce('exploitation');
+        $resultat = array();
+
+        array_push($resultat, $nbrFluExplMois);
+
+        $response = new Response(json_encode($resultat));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function afficherChartFluExplAction() {
+
+        $response = $this->chartFluExploitationAction();
+        return $this->render("GestionPassBundle:Fluidite:ChartExploitation.html.twig", array(
+                    'response' => $response,
+        ));
+    }
+    
+    //fonction pourcentage
+    function Pourcentage($Nombre, $Total) {
+
+        $resultat = $Nombre * 100 / $Total;
+        return number_format($resultat, 2,'.','');
+    }
+    
     }

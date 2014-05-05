@@ -18,7 +18,7 @@ tot_consigne:
     pattern:  /totalconsigne
     defaults: { _controller: "GestionPassBundle:Default:nbrtotaleconsigne" }  
     requirements: { _method: post|get }    
-# Chart
+# Chart anomalies
 
 chart_anomalie:
     pattern: /chartAno
@@ -66,6 +66,38 @@ afficher_chart_anomalie_electrique:
     pattern: /AfficherChartAnoElectrique
     defaults: { _controller: "GestionPassBundle:Anomalie:afficherchartelec"}
 
+#chart fluidite
+
+chart_fluidite:
+    pattern: /chartflu
+    defaults: { _controller: "GestionPassBundle:Fluidite:chartfluidite"}
+
+afficher_chart_fluidite:
+    pattern: /afficherchartflu
+    defaults: { _controller: "GestionPassBundle:Fluidite:afficherchartfluidite"}
+    
+chart_fluidite_pie:
+    pattern: /chartflupie
+    defaults: { _controller: "GestionPassBundle:Fluidite:chartfluiditepie"}
+
+afficher_chart_fluidite_pie:
+    pattern: /afficherchartflupie
+    defaults: { _controller: "GestionPassBundle:Fluidite:afficherchartfluiditepie"}
+
+chart_fluidite_heure:
+    pattern: /chartFluHeure
+    defaults: { _controller: "GestionPassBundle:Fluidite:chartfluiditeheure"}
+
+afficher_chart_fluidite_heure:
+    pattern: /afficherchartFluHeure
+    defaults: { _controller: "GestionPassBundle:Fluidite:afficherchartfluiditeheure"}
+chart_fluidite_exploitation:
+    pattern: /ChartFluExploitation
+    defaults: { _controller: "GestionPassBundle:Fluidite:chartfluexploitation"}
+    
+afficher_chart_fluidite_exploitation:
+    pattern: /AfficherChartFluExploitation
+    defaults: { _controller: "GestionPassBundle:Fluidite:afficherchartfluexpl"}
 #Anomalie
 
 anomalie:
