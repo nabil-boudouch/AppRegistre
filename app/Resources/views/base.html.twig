@@ -151,7 +151,7 @@ filter='yui_js' %}
                                           <ul class="dropdown-menu">
                                               <li><a href="{{ path('afficher_chart_anomalie') }}">Anomalie Graph</a></li>
                                               <li><a href="{{ path('afficher_chart_fluidite') }}">Fluidité Graph</a></li>
-                                              <li><a href="#">Facilitation Graph</a></li>                                              
+                                              <li><a href="{{ path('afficher_chart_facilitation') }}">Facilitation Graph</a></li>
                                           </ul>
                                       </li>
                                       <li><a href="{{ path('consigne') }}"><i class="fa fa-exclamation-triangle"></i>  Consigne</a></li>
@@ -338,7 +338,7 @@ filter='yui_js' %}
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="{{path('consigne')}}">
                     <div class="panel-footer announcement-bottom">
                         <div class="row">
                             <div class="col-xs-6">
@@ -352,7 +352,7 @@ filter='yui_js' %}
                 </a>
             </div>
         </div>
-    </div><!-- /.row -->
+    </div>    <!-- /.row -->
 
 {% endblock %}
 
@@ -365,6 +365,7 @@ filter='yui_js' %}
 {% endblock %}
 
 {% block formulaire %}
+    
 {% endblock %}
 
           {% block tables %}

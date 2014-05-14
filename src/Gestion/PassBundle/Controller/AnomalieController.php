@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Gestion\PassBundle\Utils\AppRegistre as AppRegistre;
 
 /**
  * Anomalie controller.
@@ -28,7 +29,7 @@ class AnomalieController extends Controller {
                 ->orderBy('a.dateReglement', 'ASC');
         $query = $qb->getQuery();
         $entities = $query->getResult();
-
+                
         return $this->render('GestionPassBundle:Anomalie:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -43,11 +44,9 @@ class AnomalieController extends Controller {
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $dateDetection = new DateTime('now');
-
         $user = $this->container->get('security.context')->getToken()->getUser();
         $username = $user->getUsername();
         $entity->setUser($username);
-
         $entity->setDateDetection($dateDetection);
 
         if ($form->isValid()) {
@@ -76,9 +75,7 @@ class AnomalieController extends Controller {
             'action' => $this->generateUrl('anomalie_create'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -233,28 +230,14 @@ class AnomalieController extends Controller {
     public function reglerAction($id) {
 
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('GestionPassBundle:Anomalie')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Anomalie entity.');
         }
-//        $dateDetection= new \DateTime('now');
-//        $entity->setDateDetection($dateDetection);       
-        $deleteForm = $this->createDeleteForm($id);
-
         $this->reglerAnomalie($entity);
-        // $AnomalieRepository->regleranomalie($entity);
         $em->persist($entity);
         $em->flush();
         return $this->redirect($this->generateUrl('anomalie'));
-
-
-//        return    $this->render('GestionPassBundle:Anomalie:show.html.twig', array(
-//            'entity'      => $entity,
-//            'delete_form' => $deleteForm->createView(),        
-////            'edit_form'   => $editForm->createView(),
-//            ));
     }
 
     public function AjaxReglerAction($id) {
@@ -432,7 +415,6 @@ class AnomalieController extends Controller {
 
 //anomalie pie pourcentage  Return Json Response
     public function chartAnomaliePieAction() {
-
         $nbrAnomalieInformatiqueMois = $this->getDoctrine()
                 ->getEntityManager()
                 ->getRepository('GestionPassBundle:Anomalie')
@@ -448,9 +430,10 @@ class AnomalieController extends Controller {
                 ->AnomaliesPieParSce('Electrique');
 
         $total = $nbrAnomalieElectriqueMois[1] + $nbrAnomalieElectroniqueMois[1] + $nbrAnomalieInformatiqueMois[1];
-        $prcInfo = $this->Pourcentage($nbrAnomalieInformatiqueMois[1], $total);
-        $prcElec = $this->Pourcentage($nbrAnomalieElectriqueMois[1], $total);
-        $prcElectro = $this->Pourcentage($nbrAnomalieElectroniqueMois[1], $total);
+      
+        $prcInfo = AppRegistre::Pourcentage($nbrAnomalieInformatiqueMois[1], $total);
+        $prcElec = AppRegistre::Pourcentage($nbrAnomalieElectriqueMois[1], $total);
+        $prcElectro = AppRegistre::Pourcentage($nbrAnomalieElectroniqueMois[1], $total);
 
         $nbrAnomalieElectriqueMois[1] = $prcElec;
         $nbrAnomalieElectroniqueMois[1] = $prcElectro;
@@ -475,19 +458,11 @@ class AnomalieController extends Controller {
         ));
     }
 
-//fonction pourcentage
-    function Pourcentage($Nombre, $Total) {
-
-        $resultat = $Nombre * 100 / $Total;
-        return number_format($resultat, 2,'.','');
-    }
-//
     public function nbrAnoAction(){
                  $nbrAnomalies = $this->getDoctrine()
                 ->getEntityManager()
                 ->getRepository('GestionPassBundle:Anomalie')
                 ->nbrAnomaliesEncours();
                  return $nbrAnomalies;
-    }
-    
+    }    
     }

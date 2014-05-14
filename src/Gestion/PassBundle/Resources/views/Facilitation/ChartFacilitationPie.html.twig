@@ -30,7 +30,8 @@
 		        ]
 		    };
 		});
-		                   
+		    
+                
 			var options = {
 				chart: {
 	                renderTo: 'containerPie',
@@ -38,10 +39,13 @@
 	                plotBorderWidth: null,
 	                plotShadow: false
 	            },
-
+                     credits: {
+                        enabled: false
+                    },
 	            title: {
 	                text: 'Web Sales & Marketing Efforts'
 	            },
+
 	            tooltip: {
 	                formatter: function() {
 	                    return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
@@ -61,10 +65,7 @@
 	                    },
                               showInLegend: true
 
-	                },
-                                            credits: {
-                        enabled: false
-                    }
+	                }
 	            },
 	            series: [{
 	                type: 'pie',
@@ -74,7 +75,7 @@
 	            }]
 	        }
 	        
-	        $.getJSON("{{path('chart_anomalie_pie')}}", function(json) {
+	        $.getJSON("{{path('chart_facilitation_pie')}}", function(json) {
 				options.series[0].data = json;
 	        	chart = new Highcharts.Chart(options);
 	        });
@@ -90,7 +91,7 @@
           <div class="col-lg-8 ">
             <div class="panel panel-primary">
               <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Pourcentage frequence anomalies Par services</h3>
+                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Pourcentage frequence facilitation Par services</h3>
               </div>
               <div class="panel-body ">
              {# <div id="containerPie" ></div>

@@ -27,7 +27,7 @@
     <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('facilitation_show', { 'id': entity.id }) }}">{{ entity.typeFacilitation }}</a></td>
+                <td>{{ entity.typeFacilitation }}</td>
                 <td>{{ entity.service }}</td>
                 <td>{{ entity.zone}} <br>{{ entity.emplacement}} </td> 
                 

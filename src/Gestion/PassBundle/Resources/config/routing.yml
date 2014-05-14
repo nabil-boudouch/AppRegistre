@@ -98,6 +98,42 @@ chart_fluidite_exploitation:
 afficher_chart_fluidite_exploitation:
     pattern: /AfficherChartFluExploitation
     defaults: { _controller: "GestionPassBundle:Fluidite:afficherchartfluexpl"}
+
+
+#chart facilitation
+
+chart_facilitation:
+    pattern: /chartfacil
+    defaults: { _controller: "GestionPassBundle:Facilitation:chartfacilitation"}
+
+afficher_chart_facilitation:
+    pattern: /afficherchartfacil
+    defaults: { _controller: "GestionPassBundle:Facilitation:afficherchartfacilitation"}
+    
+chart_facilitation_pie:
+    pattern: /chartfacilpie
+    defaults: { _controller: "GestionPassBundle:Facilitation:chartfacilitationpie"}
+
+afficher_chart_facilitation_pie:
+    pattern: /afficherchartfacilpie
+    defaults: { _controller: "GestionPassBundle:Facilitation:afficherchartfacilitationpie"}
+
+chart_facilitation_heure:
+    pattern: /chartFacilHeure
+    defaults: { _controller: "GestionPassBundle:Facilitation:chartfacilitationheure"}
+
+afficher_chart_facilitation_heure:
+    pattern: /afficherchartFacilHeure
+    defaults: { _controller: "GestionPassBundle:Facilitation:afficherchartfacilitationheure"}
+chart_facilitation_exploitation:
+    pattern: /ChartFacilExploitation
+    defaults: { _controller: "GestionPassBundle:Facilitation:chartfacilexploitation"}
+    
+afficher_chart_facilitation_exploitation:
+    pattern: /AfficherChartFacilExploitation
+    defaults: { _controller: "GestionPassBundle:Facilitation:afficherchartfacilexpl"}
+
+
 #Anomalie
 
 anomalie:

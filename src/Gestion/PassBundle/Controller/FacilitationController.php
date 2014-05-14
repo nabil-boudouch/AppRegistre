@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Gestion\PassBundle\Entity\Facilitation;
 use Gestion\PassBundle\Form\FacilitationType;
+use Gestion\PassBundle\Utils\AppRegistre as AppRegistre;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Facilitation controller.
@@ -22,12 +24,10 @@ class FacilitationController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-          $qb = $em->createQueryBuilder();
+        $qb = $em->createQueryBuilder();
         $qb->select('f')
                 ->from('GestionPassBundle:Facilitation', 'f')
-                ->orderBy('f.dateReglement', 'ASC');
-                
+                ->orderBy('f.dateReglement', 'ASC');                
         $query = $qb->getQuery();
         $entities = $query->getResult();
         //
@@ -45,17 +45,14 @@ class FacilitationController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $dateDetection= new \DateTime('now');
-        $entity->setDateDetection($dateDetection);
-       
+        $entity->setDateDetection($dateDetection);       
         $user = $this->container->get('security.context')->getToken()->getUser();
         $username =$user->getUsername();
         $entity->setUser($username);
-        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('facilitation_show', array('id' => $entity->getId())));
         }
 
@@ -80,7 +77,6 @@ class FacilitationController extends Controller
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -92,13 +88,11 @@ class FacilitationController extends Controller
     {
         $entity = new Facilitation();
         $form   = $this->createCreateForm($entity);
-
         return $this->render('GestionPassBundle:Facilitation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
-
     /**
      * Finds and displays a Facilitation entity.
      *
@@ -106,20 +100,15 @@ class FacilitationController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('GestionPassBundle:Facilitation')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Facilitation entity.');
         }
-
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('GestionPassBundle:Facilitation:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
-
     /**
      * Displays a form to edit an existing Facilitation entity.
      *
@@ -127,23 +116,18 @@ class FacilitationController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('GestionPassBundle:Facilitation')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Facilitation entity.');
         }
-
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('GestionPassBundle:Facilitation:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
     /**
     * Creates a form to edit a Facilitation entity.
     *
@@ -282,5 +266,130 @@ class FacilitationController extends Controller
                     'entities' => $entities,
         ));
     }
+    
+        //chart facilitation action
+        public function chartFacilitationAction() {
+
+            $nbrFacilitationExpMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Facilitation')
+                ->FacilitationParSce('exploitation');
+
+            $nbrFacilitationDGSNMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Facilitation')
+                ->FacilitationParSce('DGSN');
+    
+            
+            $resultat = array();
+
+        array_push($resultat, $nbrFacilitationExpMois);
+        array_push($resultat, $nbrFacilitationDGSNMois);
+
+        $response = new Response(json_encode($resultat));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+    
+    //afficher chart fluidite
+        public function afficherChartFacilitationAction() {
+
+        $response = $this->chartFacilitationAction();
+        return $this->render("GestionPassBundle:Facilitation:FacilitationChart.html.twig", array(
+                    'response' => $response,
+        ));
+    }
+    //facilitation pie chart
+    
+    //facilitation pie pourcentage  Return Json Response
+    public function chartFacilitationPieAction() {
+        $nbrFacilitationDGSNMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Facilitation')
+                ->FacilitationPieParSce('DGSN');
+        $nbrFacilitationExplMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Facilitation')
+                ->FacilitationPieParSce('exploitation');
+        $total = $nbrFacilitationDGSNMois[1] + $nbrFacilitationExplMois[1] ;
+        $prcDGSN = AppRegistre::Pourcentage($nbrFacilitationDGSNMois[1], $total);
+        $prcExpl = AppRegistre::Pourcentage($nbrFacilitationExplMois[1], $total);
+
+        $nbrFacilitationDGSNMois[1] = $prcDGSN;
+        $nbrFacilitationExplMois[1] = $prcExpl;
+
+        $resultat = array();
+        array_push($resultat, $nbrFacilitationExplMois);
+        array_push($resultat, $nbrFacilitationDGSNMois);
+       
+        $response = new Response(json_encode($resultat, JSON_NUMERIC_CHECK));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+//Afficher Chart Pie 
+    public function afficherChartFacilitationPieAction() {
+        $response = $this->chartFacilitationPieAction();
+        return $this->render("GestionPassBundle:Facilitation:ChartFacilitationPie.html.twig", array(
+                    'response' => $response,
+        ));
+    }
+   
+    //Fluidite par heure 
+    //
+public function chartFacilitationHeureAction() {
+        $nbrFacilitationDGSNMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Facilitation')
+                ->FacilitationParSce('DGSN');
+
+        $resultat = array();
+
+        array_push($resultat, $nbrFacilitationDGSNMois);
+
+        $response = new Response(json_encode($resultat));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function afficherChartFacilitationHeureAction() {
+
+        $response = $this->chartFluiditeAction();
+        return $this->render("GestionPassBundle:Facilitation:FacilitationChartHeure.html.twig", array(
+                    'response' => $response,
+        ));
+    }
+
+    //fluidité du service exploitation 
+    
+    public function chartFacilExploitationAction() {
+        $nbrFacilExplMois = $this->getDoctrine()
+                ->getEntityManager()
+                ->getRepository('GestionPassBundle:Facilitation')
+                ->FacilitationParSce('exploitation');
+        $resultat = array();
+
+        array_push($resultat, $nbrFacilExplMois);
+
+        $response = new Response(json_encode($resultat));
+
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function afficherChartFacilExplAction() {
+
+        $response = $this->chartFacilExploitationAction();
+        return $this->render("GestionPassBundle:Facilitation:ChartExploitation.html.twig", array(
+                    'response' => $response,
+        ));
+    } 
+
     
     }

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Gestion\PassBundle\Utils\AppRegistre as AppRegistre;
 
 /**
  * Fluidite controller.
@@ -343,8 +344,9 @@ public function reglerFluidite(Fluidite $fluid){
                 ->fluiditesPieParSce('exploitation');
 
         $total = $nbrFluiditeDGSNMois[1] + $nbrFluiditeExplMois[1] ;
-        $prcDGSN = $this->Pourcentage($nbrFluiditeDGSNMois[1], $total);
-        $prcExpl = $this->Pourcentage($nbrFluiditeExplMois[1], $total);
+      
+        $prcDGSN = AppRegistre::Pourcentage($nbrFluiditeDGSNMois[1], $total);
+        $prcExpl = AppRegistre::Pourcentage($nbrFluiditeExplMois[1], $total);
 
         $nbrFluiditeDGSNMois[1] = $prcDGSN;
         $nbrFluiditeExplMois[1] = $prcExpl;
@@ -418,13 +420,5 @@ public function chartFluiditeHeureAction() {
         return $this->render("GestionPassBundle:Fluidite:ChartExploitation.html.twig", array(
                     'response' => $response,
         ));
-    }
-    
-    //fonction pourcentage
-    function Pourcentage($Nombre, $Total) {
-
-        $resultat = $Nombre * 100 / $Total;
-        return number_format($resultat, 2,'.','');
-    }
-    
+    } 
     }

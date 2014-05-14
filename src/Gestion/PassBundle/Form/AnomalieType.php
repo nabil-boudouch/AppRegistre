@@ -25,7 +25,7 @@ class AnomalieType extends AbstractType
        
           ->add('service','choice', array(
                  'choices'  => array(
-                     'Informatique' => 'Informatique',
+                      'Informatique' => 'Informatique',
                       'Electrique' => 'Electrique',
                       'Electronique' => 'Electronique',
                       'Electromecanique' => 'Electromecanique',
@@ -33,10 +33,10 @@ class AnomalieType extends AbstractType
                       'Thermique' =>'Thermique',
                       'Exploitation' =>'Exploitation',
                       'Station de base' => 'Station de base',
-                     'DGSN' => 'DGSN')
+                      'DGSN' => 'DGSN')
               ))
                 
-            ->add('emplacement','entity', array (
+                ->add('emplacement','entity', array (
                  'label'  => 'Emplacement',
                  'class'  => 'GestionPassBundle:Emplacement',
                  'property' => 'nomEmplacement'

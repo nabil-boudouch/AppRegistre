@@ -74,3 +74,6 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Gestion\UserBundle\Entity\User
+    
+parameters:
+     max_articles_on_listepage: 10

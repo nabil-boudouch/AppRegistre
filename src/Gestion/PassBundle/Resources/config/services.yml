@@ -4,4 +4,10 @@ parameters:
 services:
 #    gestion_pass.example:
 #        class: %gestion_pass.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+#        arguments: [@service_id, "plain_value", %parameter%]    
+# gestion_pass.generix est un service qui gere les requetes doctrine specifique a l'app
+    gestion_pass.generix:
+        class: Gestion\PassBundle\Generic\Generix
+        arguments: [@doctrine]
+    
+        
