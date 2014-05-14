@@ -140,7 +140,7 @@ filter='yui_js' %}
                               <div class="collapse navbar-collapse navbar-ex1-collapse">
                                   <ul class="nav navbar-nav side-nav">
                                       <li class=""><a href="{{ path('gestion_pass_homepage') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
-                                      <li><a href="{{ path('anomalie') }}"><i class="fa fa-exclamation-triangle"></i> Anomalie</a></li>
+                                      <li><a href="{{ path('anomalie', { 'page' : 1  }) }}"><i class="fa fa-exclamation-triangle"></i> Anomalie</a></li>
                                       <li><a href="{{ path('fluidite') }}"><i class="fa fa-spinner"></i> Fluidité</a></li>
                                       <li><a href="{{ path('facilitation') }}"><i class="fa fa-male"></i> Facilitation</a></li>
                                       <li><a href="{{ path('exportation') }}"><i class="fa fa-video-camera"></i> Exportation Caméra </a></li>

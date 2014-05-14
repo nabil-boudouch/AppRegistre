@@ -21,19 +21,32 @@ class FacilitationController extends Controller
      * Lists all Facilitation entities.
      *
      */
-    public function indexAction()
+    public function indexAction($page)
     {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
-        $qb->select('f')
-                ->from('GestionPassBundle:Facilitation', 'f')
-                ->orderBy('f.dateReglement', 'ASC');                
-        $query = $qb->getQuery();
-        $entities = $query->getResult();
-        //
+         $em = $this->getDoctrine()->getEntityManager();
+         $qb = $em->createQueryBuilder();       
+         $total  = $em->getRepository('GestionPassBundle:Facilitation')->findAll();
+        /* total of résultat */
+        $total_anomalies    = count($total);
+        $anomalies_per_page = $this->container->getParameter('max_articles_on_listepage');
+        $last_page         = ceil($total_anomalies / $anomalies_per_page);
+        $previous_page     = $page > 1 ? $page - 1 : 1;
+        $next_page         = $page < $last_page ? $page + 1 : $last_page;       
+            /* résultat  à afficher*/        
+        $entities   = $qb ->select('a')                
+                          ->from('GestionPassBundle:Facilitation', 'a')
+                          ->orderBy('a.dateReglement', 'ASC')
+                                    ->setFirstResult(($page * $anomalies_per_page) - $anomalies_per_page)
+                                    ->setMaxResults($this->container->getParameter('max_articles_on_listepage'))
+                                    ->getQuery()->getResult();                            
         return $this->render('GestionPassBundle:Facilitation:index.html.twig', array(
-            'entities' => $entities,
-        ));
+                    'entities' => $entities,
+                    'last_page' => $last_page,
+                    'previous_page' => $previous_page,
+                    'current_page' => $page,
+                    'next_page' => $next_page,
+                    'total_anomalies' => $total_anomalies,
+            ));
     }
     /**
      * Creates a new Facilitation entity.
